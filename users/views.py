@@ -3,7 +3,6 @@ from django.views import View
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from .forms import UserCreationForm
-from django.contrib.auth.backends import ModelBackend
 
 class Register(View):
 
@@ -33,6 +32,16 @@ class Register(View):
             'form': form
         }
         return render(request, self.template_name, context)
+
+
+class Account(View):
+
+    def get(self, request):
+
+        template_name = 'account.html'
+        context = {}
+
+        return render(request, template_name, context)
 
 
 

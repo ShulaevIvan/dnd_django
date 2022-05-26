@@ -16,3 +16,4 @@ class AdminUser(UserAdmin):
             },
         ),
     )
+
