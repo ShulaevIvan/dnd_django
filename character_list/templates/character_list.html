@@ -1,5 +1,19 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
 <h1>CharList</h1>
 
+
+
 {% for i in character %}
-{{i.name}}
+<p>Имя {{i.name}}</p>
+<p>Сила {{i.char_stats.strength}}</p>
 {% endfor %}
+
+{% endblock content %}
+
+
+
+

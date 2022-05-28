@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+<h1>CharListAll</h1>
+
+{% for i in character.all %}
+<p>id {{i.id}} </p>
+<p>name {{i.name}} </p>
+<p>slug {{i.slug}} </p>
+{% endfor %}
+
+{% endblock content %}
+
+
