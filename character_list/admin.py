@@ -37,7 +37,7 @@ class AdminPersonalityTraits(admin.TabularInline):
 class AdminCharacterItemPosition(admin.TabularInline):
 
     model = CharacterItemPosition
-    exta = 0
+    extra = 0
 
 class AdminCharacterDeath(admin.TabularInline):
 
@@ -63,7 +63,6 @@ class AdminCharacterList(admin.ModelAdmin):
         AdminPersonalityTraits,
         AdminCharacterItemPosition,
         AdminCharacterDeath,
-        
         ]
 
 

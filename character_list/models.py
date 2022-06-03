@@ -10,8 +10,8 @@ class CharacterList(models.Model):
     armor = models.IntegerField(default=0, blank=True)
     speed = models.IntegerField(default=0, blank=True)
     iniciative = models.IntegerField(default=0, blank=True)
-    max_health = models.IntegerField(blank=True)
-    current_health = models.IntegerField(blank=True)
+    max_health = models.IntegerField(default=10, blank=True)
+    current_health = models.IntegerField(default=10, blank=True)
     multipler_health = models.IntegerField(default=6,blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='list_owner')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
@@ -59,7 +59,7 @@ class CharacterCharacteristics(models.Model):
 
     def __str__(self):
 
-        return 'характеристики'
+        return str([self.strength, self.agility, self.stamina, self.wisdom, self.charism])
 
 
 class CharacterAtributes(models.Model):
@@ -95,8 +95,8 @@ class CharacterAtributes(models.Model):
 
 class CharacterDeath(models.Model):
 
-    failure = models.IntegerField(default=0, blank=True)
-    success = models.IntegerField(default=0, blank=True)
+    failure = models.IntegerField(default=0, blank=True, null=True)
+    success = models.IntegerField(default=0, blank=True, null=True)
     character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='char_death')
 
     class Meta:
@@ -175,8 +175,4 @@ class CharacterItemPosition(models.Model):
 
     character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='item_positions')
     item = models.ForeignKey(CharacterItem, on_delete=models.CASCADE, related_name='item_positions')
-    quantity = models.IntegerField()
-
-    def __str__(self):
-
-        return self.quantity
+    quantity = models.IntegerField(default=0)

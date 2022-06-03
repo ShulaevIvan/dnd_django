@@ -1,0 +1,9 @@
+@baseUrl = http://localhost:8000/api/v1/
+
+###
+
+GET {{baseUrl}}character_list/
+
+###
+GET {{baseUrl}}character_class/
+
