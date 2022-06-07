@@ -50,8 +50,12 @@ class CharacterListItemView(PermissionRequiredMixin, View):
             'training' : 'wisdom',
             'deception': 'charism',
             'attention' : 'wisdom',
+            'history ': 'intelligence',
+            'investigation': 'intelligence',
+            'nature' : 'intelligence',
             'intimidation' : 'charism',
             'medicine' : 'wisdom',
+            'religion ' : 'intelligence',
             'insight' : 'wisdom',
             'execution' : 'charism',
             'persuasion' : 'wisdom',
@@ -74,18 +78,19 @@ class CharacterListItemView(PermissionRequiredMixin, View):
     def get(self, request, slug):
 
         character = CharacterList.objects.all().filter(name=slug).filter(owner=request.user)
-        char_stats = CharacterCharacteristics.objects.all().filter(charcter_list = character[0].id)
+        char_stats = CharacterCharacteristics.objects.all().filter(character_list = character[0].id)
         char_class = CharacterClass.objects.all().filter(character_list = character[0].id)
-        char_atributes = CharacterAtributes.objects.all().filter(charcter_list = character[0].id)
+        char_atributes = CharacterAtributes.objects.all().filter(character_list = character[0].id)
         clear_stats = {}
         stats_modif = {}
 
         for i in char_stats.values():
-            if i == i['id']or i == i['charcter_list_id']:
+            if i == i['id']or i == i['character_list_id']:
                 continue
             else:
                 clear_stats['strength'] = i['strength']
                 clear_stats['agility'] = i['agility']
+                clear_stats['intelligence'] = i['intelligence']
                 clear_stats['stamina'] = i['stamina']
                 clear_stats['wisdom'] = i['wisdom']
                 clear_stats['charism'] = i['charism']

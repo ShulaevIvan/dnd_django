@@ -48,9 +48,10 @@ class CharacterCharacteristics(models.Model):
     strength = models.IntegerField(default=10, null=False)
     agility = models.IntegerField(default=10, null=False)
     stamina = models.IntegerField(default=10, null=False)
+    intelligence = models.IntegerField(default=10, null=False)
     wisdom = models.IntegerField(default=10, null=False)
     charism = models.IntegerField(default=10, null=False)
-    charcter_list = models.OneToOneField(CharacterList, on_delete=models.CASCADE, related_name='char_stats')
+    character_list = models.OneToOneField(CharacterList, on_delete=models.CASCADE, related_name='char_stats')
 
     class Meta:
 
@@ -81,7 +82,7 @@ class CharacterAtributes(models.Model):
     sleight_of_hand = models.IntegerField(default=0, null=True, blank=True)
     stealth = models.IntegerField(default=0, null=True, blank=True)
     survival = models.IntegerField(default=0, null=True, blank=True)
-    charcter_list = models.OneToOneField(CharacterList, on_delete=models.CASCADE, related_name='char_atr')
+    character_list = models.OneToOneField(CharacterList, on_delete=models.CASCADE, related_name='char_atr')
 
     class Meta:
 
