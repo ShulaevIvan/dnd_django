@@ -3,14 +3,28 @@
 
 {% block content %}
 
-<h1>CharList</h1>
+<h1>CharList </h1>
 
-
-
-{% for i in character %}
-<p>Имя {{i.name}}</p>
-<p>Сила {{i.char_stats.strength}}</p>
+{% for obj in character %}
+<p>Имя {{obj.name}}</p>
 {% endfor %}
+
+{% for class in char_class.all %}
+<p>Класс {{ class.class_name }} Основной: {{ class.main }}</p>
+{% endfor %}
+<h2>Характеристики</h2>
+{% for stat in char_stats.all %}
+<p> Сила {{ stat.strength }} | ({{ char_modif.strength }} )</p>
+<p> Ловкость {{ stat.agility }} |  ({{ char_modif.agility }} )</p>
+<p> Выносливость {{ stat.stamina }} | ({{ char_modif.stamina }} )</p>
+<p> Мудрость {{ stat.wisdom }} | ({{ char_modif.wisdom }} )</p>
+<p> Харизма {{ stat.charism  }} | ({{ char_modif.charism}} )</p>
+{% endfor %}
+<h2>Навыки</h2>
+{% for k, v in char_atrs.items %}
+<p>{{ k }} : {{ v }}</p>
+{% endfor %}
+
 
 {% endblock content %}
 
