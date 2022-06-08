@@ -2,14 +2,30 @@ from rest_framework import serializers
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics
 
 
+class CharacterClassSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterClass
+        fields = ['main', 'class_name', 'lvl']
+
+class CharacterCharacteristicsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterCharacteristics
+        fields = [
+            'strength', 'agility', 'stamina', 
+            'intelligence', 'wisdom', 'charism'
+            ]
+        
+        
 
 class CharacterListSerializer(serializers.ModelSerializer):
-
-    char_class = serializers.StringRelatedField(
-        many=True,
-        read_only=True,
-        )
         
+    char_class = CharacterClassSerializer(many=True)
+    char_stats = CharacterCharacteristicsSerializer(many=False)
+
     class Meta:
 
         model = CharacterList
@@ -17,18 +33,15 @@ class CharacterListSerializer(serializers.ModelSerializer):
             'id', 'name', 'player_name', 'expirience', 
             'armor', 'speed', 'iniciative',
             'max_health', 'current_health',
-            'multipler_health', 'char_class','char_stats'
+            'multipler_health', 'char_class', 'char_stats',
         ]
+        read_only_fields = ('char_class', 'char_stats',)
+        # depth = 1
 
 
 
-class CharacterClassSerializer(serializers.ModelSerializer):
 
-    class Meta:
 
-        model = CharacterClass
-        fields = ['id', 'class_name', 'character_list', 'main']
-        read_only_fields = ['character_list', 'char_class']
 
 
 

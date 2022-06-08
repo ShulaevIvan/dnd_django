@@ -3,14 +3,14 @@
 
 {% block content %}
 
-<h1>CharList </h1>
+<h1>CharList</h1>
 
 {% for obj in character %}
 <p>Имя {{obj.name}}</p>
 {% endfor %}
 
 {% for class in char_class.all %}
-<p>Класс {{ class.class_name }} Основной: {{ class.main }}</p>
+<p>Класс {{ class.class_name }} | Уровень: {{ class.lvl }} | Основной: {{ class.main }}</p>
 {% endfor %}
 <h2>Характеристики</h2>
 
@@ -28,6 +28,20 @@
 <p>{{ k }} : {{ v }}</p>
 {% endfor %}
 
+<h2>Смерти</h2>
+{% for i in char_death %}
+<p>Попытки / Провалы {{i.failure }}</p>
+<p>Попытки / Успехи {{i.success}}</p>
+{% endfor %}
+
+<h2>Предметы</h2>
+
+{% for i in char_items %}
+<p> Название: {{ i.item.name }} </p>
+<p> Редкость: {{ i.item.rarity }}</p>
+<p> Количество: {{i.quantity }}</p>
+<hr/>
+{% endfor %}
 
 {% endblock content %}
 

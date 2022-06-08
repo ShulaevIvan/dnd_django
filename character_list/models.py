@@ -78,7 +78,7 @@ class CharacterAtributes(models.Model):
     insight = models.IntegerField(default=0, null=True, blank=True)
     execution = models.IntegerField(default=0, null=True, blank=True)
     persuasion = models.IntegerField(default=0, null=True, blank=True)
-    Religion = models.IntegerField(default=0, null=True, blank=True)
+    religion = models.IntegerField(default=0, null=True, blank=True)
     sleight_of_hand = models.IntegerField(default=0, null=True, blank=True)
     stealth = models.IntegerField(default=0, null=True, blank=True)
     survival = models.IntegerField(default=0, null=True, blank=True)

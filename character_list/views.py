@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views import View
-from .models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterAtributes
+from .models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterAtributes, \
+CharacterDeath, CharacterItemPosition
 
 
 class CharacterListAllView(PermissionRequiredMixin, View):
@@ -28,14 +29,13 @@ class CharacterListItemView(PermissionRequiredMixin, View):
         modif_default = -5
 
         for item in stat_obj.values():
-            print(item[param])
             for i in range(1, 31):
                 if i % 2 == 0:
                     modif_default += 1
 
-                if item[param] == i:
-                    
+                if item[param] == i:  
                     return modif_default
+
                 elif item[param] and item[param] > 30:
                     modif_default = 10
 
@@ -62,17 +62,16 @@ class CharacterListItemView(PermissionRequiredMixin, View):
             'sleight_of_hand' : 'agility',
             'stealth' : 'agility',
             'survival' : 'wisdom'
-            }
+        }
 
         clear_atr = {}
+
         for obj in atr_obj.values():
             for k, v in obj.items():
-                print(k)
                 if k in atr_set:
                     clear_atr[k] = obj[k] + stats_modif[atr_set[k]]
-        print(clear_atr)
-        return clear_atr
 
+        return clear_atr
 
 
     def get(self, request, slug):
@@ -80,7 +79,9 @@ class CharacterListItemView(PermissionRequiredMixin, View):
         character = CharacterList.objects.all().filter(name=slug).filter(owner=request.user)
         char_stats = CharacterCharacteristics.objects.all().filter(character_list = character[0].id)
         char_class = CharacterClass.objects.all().filter(character_list = character[0].id)
+        char_death = CharacterDeath.objects.all().filter(character_list = character[0].id)
         char_atributes = CharacterAtributes.objects.all().filter(character_list = character[0].id)
+        char_items = CharacterItemPosition.objects.all().filter(character_list = character[0].id)
         clear_stats = {}
         stats_modif = {}
 
@@ -106,7 +107,9 @@ class CharacterListItemView(PermissionRequiredMixin, View):
             'char_stats': char_stats,
             'char_modif': stats_modif,
             'char_atrs': char_atrs,
-            'char_class': char_class
+            'char_death': char_death,
+            'char_class': char_class,
+            'char_items': char_items
         }
 
         return render(request, template_name, context)
