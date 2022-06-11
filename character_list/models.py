@@ -177,3 +177,4 @@ class CharacterItemPosition(models.Model):
     character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='item_positions')
     item = models.ForeignKey(CharacterItem, on_delete=models.CASCADE, related_name='item_positions')
     quantity = models.IntegerField(default=0)
+

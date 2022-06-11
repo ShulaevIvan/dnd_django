@@ -1,6 +1,66 @@
 @baseUrl = http://localhost:8000/api/v1/
 
 ###
-
 GET {{baseUrl}}character_list/
+Content-Type: application/json
 
+###
+PATCH {{baseUrl}}character_list/
+Content-Type: application/json
+
+{
+    "owner": 1,
+    "name": "test1235",
+    "player_name": "test",
+    "expirience": 0,
+    "armor": 0,
+    "speed": 0,
+    "iniciative": 0,
+    "max_health": 0,
+    "current_health": 0,
+    "multipler_health": 6
+}
+
+
+
+###
+GET {{baseUrl}}character_characteristc/
+Content-Type: application/json
+
+{
+    "strength": 25,
+    "agility": 21,
+    "stamina": 15,
+    "intelligence": 17,
+    "wisdom": 22,
+    "charism": 19,
+    "character_list": 86
+}
+
+###
+POST {{baseUrl}}character_characteristc/
+Content-Type: application/json
+
+{
+    "strength": 25,
+    "agility": 21,
+    "stamina": 15,
+    "intelligence": 17,
+    "wisdom": 22,
+    "charism": 19,
+    "character_list": 86
+}
+
+###
+PATCH {{baseUrl}}character_characteristc/10/
+Content-Type: application/json
+
+{
+    "strength": 25,
+    "agility": 21,
+    "stamina": 15,
+    "intelligence": 17,
+    "wisdom": 22,
+    "charism": 19,
+    "character_list": 86
+}

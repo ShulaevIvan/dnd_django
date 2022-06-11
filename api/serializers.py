@@ -1,5 +1,9 @@
+import email
+from unicodedata import name
 from rest_framework import serializers
+from users.models import User
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics
+
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -15,35 +19,51 @@ class CharacterCharacteristicsSerializer(serializers.ModelSerializer):
 
         model = CharacterCharacteristics
         fields = [
-            'strength', 'agility', 'stamina', 
-            'intelligence', 'wisdom', 'charism'
+            'id', 'strength', 'agility', 'stamina', 
+            'intelligence', 'wisdom', 'charism', 'character_list',
             ]
-        
-        
+
+    def create(self, validated_data):
+
+        character_list = validated_data.pop('character_list')
+        char_obj = CharacterCharacteristics.objects.create(character_list=character_list, **validated_data)
+
+        return char_obj
 
 class CharacterListSerializer(serializers.ModelSerializer):
-        
-    char_class = CharacterClassSerializer(many=True)
-    char_stats = CharacterCharacteristicsSerializer(many=False)
+
+    char_class = CharacterClassSerializer(many=True, read_only=True)
+    char_stats = CharacterCharacteristicsSerializer(many=False, read_only=True)
 
     class Meta:
 
         model = CharacterList
         fields = [
-            'id', 'name', 'player_name', 'expirience', 
+            'id', 'owner', 'name', 'player_name', 'expirience', 
             'armor', 'speed', 'iniciative',
             'max_health', 'current_health',
-            'multipler_health', 'char_class', 'char_stats',
+            'multipler_health', 'char_class', 'char_stats'
         ]
-        read_only_fields = ('char_class', 'char_stats',)
-        # depth = 1
+
+    def create(self, validated_data):
+
+        owner = validated_data.pop('owner')
+        slug = validated_data.pop('name')
+        positions = User.objects.all().filter(email=owner)
+        
+        
+
+        for i in positions:
+            
+            user_id = i.id
+            char_list = CharacterList.objects.create(owner_id = user_id, name=slug, slug = slug,  **validated_data)
+            
+        return char_list
 
 
+        
 
-
-
-
-
+        
 
 
 
