@@ -12,6 +12,7 @@ class CharacterClassSerializer(serializers.ModelSerializer):
         model = CharacterClass
         fields = ['id', 'main', 'class_name', 'lvl', 'character_list']
 
+
     def create(self, validated_data):
         class_added = validated_data.pop('class_name')
         char_list = validated_data.pop('character_list')
@@ -25,13 +26,6 @@ class CharacterClassSerializer(serializers.ModelSerializer):
         char_class = CharacterClass.objects.create(class_name= class_added, character_list = char_list, **validated_data)
         
         return char_class
-        
-
-
-                
-            
-
-        
             
 
 class CharacterCharacteristicsSerializer(serializers.ModelSerializer):
@@ -66,8 +60,10 @@ class CharacterListSerializer(serializers.ModelSerializer):
             'multipler_health', 'char_class', 'char_stats'
         ]
 
-    def create(self, validated_data):
+        read_only_fields = ['owner']
 
+    def create(self, validated_data):
+        print(validated_data)
         owner = validated_data.pop('owner')
         slug = validated_data.pop('name')
         characters = User.objects.all().filter(email=owner)

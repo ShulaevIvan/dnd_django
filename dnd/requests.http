@@ -3,14 +3,16 @@
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 ###
 POST {{baseUrl}}character_list/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
-    "owner": 1,
-    "name": "testing_character",
+
+    "name": "testing_character232562",
     "player_name": "Vlad",
     "expirience": 0,
     "armor": 5,
@@ -24,9 +26,10 @@ Content-Type: application/json
 ###
 PATCH {{baseUrl}}character_list/2/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
-    "owner": 1,
+
     "name": "test1235",
     "player_name": "test",
     "expirience": 0,
@@ -42,6 +45,7 @@ Content-Type: application/json
 
 DELETE {{baseUrl}}character_list/97/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 ### character_class
 
@@ -50,6 +54,7 @@ GET {{baseUrl}}character_class/
 ###
 POST  {{baseUrl}}character_class/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "class_name": "Warrior",
@@ -59,6 +64,7 @@ Content-Type: application/json
 ###
 PATCH  {{baseUrl}}character_class/12/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "class_name": "Archangel",
@@ -69,6 +75,7 @@ Content-Type: application/json
 ###
 DELETE  {{baseUrl}}character_class/11/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "class_name": "Archangel",
@@ -79,6 +86,7 @@ Content-Type: application/json
 ### character_stats
 GET {{baseUrl}}character_characteristc/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "strength": 25,
@@ -92,6 +100,7 @@ Content-Type: application/json
 ###
 POST {{baseUrl}}character_characteristc/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "strength": 15,
@@ -106,6 +115,7 @@ Content-Type: application/json
 ###
 PATCH {{baseUrl}}character_characteristc/12/
 Content-Type: application/json
+Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 {
     "strength": 5,
