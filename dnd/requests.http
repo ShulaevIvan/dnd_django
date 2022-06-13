@@ -1,11 +1,28 @@
 @baseUrl = http://localhost:8000/api/v1/
 
-###
+### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
 
 ###
-PATCH {{baseUrl}}character_list/
+POST {{baseUrl}}character_list/
+Content-Type: application/json
+
+{
+    "owner": 1,
+    "name": "testing_character",
+    "player_name": "Vlad",
+    "expirience": 0,
+    "armor": 5,
+    "speed": 30,
+    "iniciative": 0,
+    "max_health": 1000,
+    "current_health": 1000,
+    "multipler_health": 6
+}
+
+###
+PATCH {{baseUrl}}character_list/2/
 Content-Type: application/json
 
 {
@@ -21,9 +38,45 @@ Content-Type: application/json
     "multipler_health": 6
 }
 
+###
 
+DELETE {{baseUrl}}character_list/97/
+Content-Type: application/json
+
+### character_class
+
+GET {{baseUrl}}character_class/
 
 ###
+POST  {{baseUrl}}character_class/
+Content-Type: application/json
+
+{
+    "class_name": "Warrior",
+    "character_list": 97
+}
+
+###
+PATCH  {{baseUrl}}character_class/12/
+Content-Type: application/json
+
+{
+    "class_name": "Archangel",
+    "character_list": 2,
+    "main": "False"
+}
+
+###
+DELETE  {{baseUrl}}character_class/11/
+Content-Type: application/json
+
+{
+    "class_name": "Archangel",
+    "character_list": 2
+
+}
+
+### character_stats
 GET {{baseUrl}}character_characteristc/
 Content-Type: application/json
 
@@ -33,8 +86,7 @@ Content-Type: application/json
     "stamina": 15,
     "intelligence": 17,
     "wisdom": 22,
-    "charism": 19,
-    "character_list": 86
+    "charism": 19
 }
 
 ###
@@ -42,25 +94,25 @@ POST {{baseUrl}}character_characteristc/
 Content-Type: application/json
 
 {
-    "strength": 25,
-    "agility": 21,
+    "strength": 15,
+    "agility": 10,
     "stamina": 15,
-    "intelligence": 17,
-    "wisdom": 22,
-    "charism": 19,
-    "character_list": 86
+    "intelligence": 12,
+    "wisdom": 11,
+    "charism": 12,
+    "character_list": 97
 }
 
 ###
-PATCH {{baseUrl}}character_characteristc/10/
+PATCH {{baseUrl}}character_characteristc/12/
 Content-Type: application/json
 
 {
-    "strength": 25,
+    "strength": 5,
     "agility": 21,
     "stamina": 15,
     "intelligence": 17,
     "wisdom": 22,
     "charism": 19,
-    "character_list": 86
+    "character_list": 91
 }

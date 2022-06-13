@@ -1,6 +1,6 @@
 from rest_framework.viewsets  import ModelViewSet
-from .serializers import CharacterListSerializer, CharacterCharacteristicsSerializer
-from character_list.models import CharacterList, CharacterCharacteristics
+from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer
+from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass
 
 
 class CharacterListViewSet(ModelViewSet):
@@ -12,3 +12,8 @@ class CharacterCharacteristcViewSet(ModelViewSet):
 
     queryset = CharacterCharacteristics.objects.all()
     serializer_class = CharacterCharacteristicsSerializer
+
+class CharacterClassViewSet(ModelViewSet):
+
+    queryset = CharacterClass.objects.all()
+    serializer_class = CharacterClassSerializer
