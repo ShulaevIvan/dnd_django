@@ -75,7 +75,7 @@ class CharacterListItemView(PermissionRequiredMixin, View):
 
 
     def get(self, request, slug):
-
+        print(slug)
         character = CharacterList.objects.all().filter(name=slug).filter(owner=request.user)
         char_stats = CharacterCharacteristics.objects.all().filter(character_list = character[0].id)
         char_class = CharacterClass.objects.all().filter(character_list = character[0].id)

@@ -1,8 +1,8 @@
 from rest_framework import serializers
+from django.utils.timezone import now
 from rest_framework.validators import ValidationError
 from users.models import User
-from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics
-
+from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -63,7 +63,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
         read_only_fields = ['owner']
 
     def create(self, validated_data):
-        print(validated_data)
+
         owner = validated_data.pop('owner')
         slug = validated_data.pop('name')
         characters = User.objects.all().filter(email=owner)
@@ -74,6 +74,79 @@ class CharacterListSerializer(serializers.ModelSerializer):
             char_list = CharacterList.objects.create(owner_id = user_id, name = slug, slug = slug,  **validated_data)
             
         return char_list
+
+
+class CharacterItemSerializer(serializers.ModelSerializer):
+
+
+    class Meta:
+
+        model = CharacterItem
+        fields = ['id', 'name', 'rarity']
+        read_only_fields = ['id']
+    
+    def create(self, validated_data):
+
+        name = validated_data['name']
+
+        if CharacterItem.objects.all().filter(name=name).exists():
+
+            raise ValidationError('Предмет существует!')
+
+        return super().create(validated_data)
+
+class CharacterItemPositionSerializer(serializers.ModelSerializer):
+
+    item = CharacterItemSerializer
+
+    class Meta:
+
+        model = CharacterItemPosition
+        fields = ['id', 'character_list', 'item', 'quantity']
+        exclude_fields = ['target_character_list']
+
+    # def validate(self, attrs):
+
+    #     if CharacterItemPosition.objects.all().filter(item=attrs['item']).filter(character_list=attrs['character_list']).exists():
+    #         item_check = CharacterItemPosition.objects.all().filter(item=attrs['item'], character_list=attrs['character_list'])
+
+    #         for i in item_check:
+    #             attrs['quantity'] += i.quantity
+
+    #         CharacterItemPosition.objects.all().filter(item=attrs['item'], character_list=attrs['character_list']).delete()
+
+    #     return attrs
+
+class GiveAwayItemPositionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterItemPosition
+        fields = ['id', 'character_list', 'item', 'target_character_list']
+
+    def create(self, validated_data):
+        give_item = validated_data['item']
+        target_character_id = validated_data['target_character_list']
+        current_character = validated_data['character_list']
+        current_character_items = CharacterItemPosition.objects.all().filter(character_list = current_character)
+        character_obj = CharacterList.objects.all().filter(id=target_character_id)
+
+
+        for i in current_character_items:
+            if i.item == give_item:
+                print(i.item)
+                current_character_items = CharacterItemPosition.objects.all().filter(character_list = current_character, item=i.item).delete()
+                target_character_positions = CharacterItemPosition.objects.create(character_list_id=target_character_id, item_id = give_item.id)
+
+        return target_character_positions
+
+
+
+        
+        
+
+
+
 
 
         

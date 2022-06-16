@@ -1,7 +1,8 @@
-from urllib import request
+from rest_framework.views import Response
 from rest_framework.viewsets  import ModelViewSet
-from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer
-from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass
+from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer, \
+CharacterItemSerializer, CharacterItemPositionSerializer, GiveAwayItemPositionSerializer
+from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterItem, CharacterItemPosition
 
 
 class CharacterListViewSet(ModelViewSet):
@@ -21,3 +22,25 @@ class CharacterClassViewSet(ModelViewSet):
 
     queryset = CharacterClass.objects.all()
     serializer_class = CharacterClassSerializer
+
+class CharacterItemViewset(ModelViewSet):
+
+    queryset = CharacterItem.objects.all()
+    serializer_class = CharacterItemSerializer
+
+class CharacterItemPositionViewSet(ModelViewSet):
+
+    queryset = CharacterItemPosition.objects.all()
+    serializer_class = CharacterItemPositionSerializer
+
+class GiveAwayItemPosition(ModelViewSet):
+
+    queryset = CharacterItemPosition.objects.all()
+    serializer_class = GiveAwayItemPositionSerializer
+
+    # def list(self, request):
+    #     queryset = CharacterItemPosition.objects.all()
+    #     serializer = GiveAwayItemPositionSerializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+    

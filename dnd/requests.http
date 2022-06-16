@@ -3,12 +3,12 @@
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 ###
 POST {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
 
@@ -26,7 +26,7 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 ###
 PATCH {{baseUrl}}character_list/2/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
 
@@ -45,7 +45,7 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 
 DELETE {{baseUrl}}character_list/97/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 ### character_class
 
@@ -54,17 +54,17 @@ GET {{baseUrl}}character_class/
 ###
 POST  {{baseUrl}}character_class/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "class_name": "Warrior",
-    "character_list": 97
+    "character_list": 98
 }
 
 ###
 PATCH  {{baseUrl}}character_class/12/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "class_name": "Archangel",
@@ -75,7 +75,7 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 ###
 DELETE  {{baseUrl}}character_class/11/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "class_name": "Archangel",
@@ -86,7 +86,7 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 ### character_stats
 GET {{baseUrl}}character_characteristc/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "strength": 25,
@@ -100,7 +100,7 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
 ###
 POST {{baseUrl}}character_characteristc/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "strength": 15,
@@ -109,13 +109,13 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
     "intelligence": 12,
     "wisdom": 11,
     "charism": 12,
-    "character_list": 97
+    "character_list": 98
 }
 
 ###
 PATCH {{baseUrl}}character_characteristc/12/
 Content-Type: application/json
-Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 {
     "strength": 5,
@@ -126,3 +126,86 @@ Authorization: Token 9cb37089a94e4f3827e4e8025378c735fd0fdcd1
     "charism": 19,
     "character_list": 91
 }
+
+### create_or _get item
+GET {{baseUrl}}get_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+###
+POST {{baseUrl}}get_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+{
+    "name": "2123test1",
+    "rarity": "gold2"
+}
+###
+PATCH {{baseUrl}}get_items/345/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+{
+    "name": "test2222",
+    "rarity": "gold2"
+}
+
+###
+DELETE  {{baseUrl}}get_items/346/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+
+### create_or _get item_for_character
+GET {{baseUrl}}get_character_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+###
+POST {{baseUrl}}get_character_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+{
+    "character_list": 118,
+    "item": 347,
+    "quantity": 14
+}
+
+###
+PATCH {{baseUrl}}get_character_items/452/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+{
+    "character_list": 94,
+    "item": 345,
+    "quantity": 1
+}
+
+###
+DELETE  {{baseUrl}}get_character_items/453/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+
+###
+GET {{baseUrl}}give_character_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+###
+POST {{baseUrl}}give_character_items/
+Content-Type: application/json
+Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+
+{
+    "character_list": 1,
+    "item": 1,
+    "target_character_list": 2
+}
+
+
+
+
