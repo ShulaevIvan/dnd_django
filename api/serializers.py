@@ -1,7 +1,4 @@
-from multiprocessing.sharedctypes import Value
-from httplib2 import Response
 from rest_framework import serializers
-from django.utils.timezone import now
 from rest_framework.validators import ValidationError
 from users.models import User
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition
@@ -107,19 +104,6 @@ class CharacterItemPositionSerializer(serializers.ModelSerializer):
         fields = ['id', 'character_list', 'item', 'quantity']
         exclude_fields = ['target_character_list']
 
-    # def validate(self, attrs):
-
-    #     if CharacterItemPosition.objects.all().filter(item=attrs['item']).filter(character_list=attrs['character_list']).exists():
-    #         item_check = CharacterItemPosition.objects.all().filter(item=attrs['item'], character_list=attrs['character_list'])
-
-    #         for i in item_check:
-    #             attrs['quantity'] += i.quantity
-
-    #         CharacterItemPosition.objects.all().filter(item=attrs['item'], character_list=attrs['character_list']).delete()
-
-    #     return attrs
-
-
 class GiveAwayItemPositionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -137,26 +121,28 @@ class GiveAwayItemPositionSerializer(serializers.ModelSerializer):
 
 
         for i in current_character_items:
+            print(i.item)
 
             if i.item == give_item:
                 qnt_obj = CharacterItemPosition.objects.all().filter(character_list = current_character, item=i.item)
                 for qnt in qnt_obj:
-                    if qnt.quantity > 1:
+                    if qnt.quantity >= 1:
                         qnt.quantity -= 1
                         qnt.save()
+                        target_character_positions = qnt
                     else:
                         current_character_items = CharacterItemPosition.objects.all().filter(character_list = current_character, item=i.item).delete()
+                        raise ValidationError('Предметы закончились')
                         
                 if character_obj.exists():
                     for qnt in character_obj:
-                        print(qnt)
                         qnt.quantity += 1
                         qnt.save()
-                        target_character_positions = Response(status=204)
+                        target_character_positions = qnt 
                 else:
                     target_character_positions = CharacterItemPosition.objects.create(character_list_id=target_character_id, item_id = give_item.id, quantity = +1)
 
-        return target_character_positions
+            return target_character_positions
 
 
 

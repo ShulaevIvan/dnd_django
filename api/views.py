@@ -38,9 +38,4 @@ class GiveAwayItemPosition(ModelViewSet):
     queryset = CharacterItemPosition.objects.all()
     serializer_class = GiveAwayItemPositionSerializer
 
-    # def list(self, request):
-    #     queryset = CharacterItemPosition.objects.all()
-    #     serializer = GiveAwayItemPositionSerializer(queryset, many=True)
-    #     return Response(serializer.data)
-
     
