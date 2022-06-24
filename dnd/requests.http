@@ -3,7 +3,7 @@
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 ###
 POST {{baseUrl}}character_list/
@@ -128,23 +128,23 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 }
 
 ### create_or _get item
-GET {{baseUrl}}get_items/
+GET {{baseUrl}}items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 ###
-POST {{baseUrl}}get_items/
+POST {{baseUrl}}items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 {
     "name": "2123test1",
     "rarity": "gold2"
 }
 ###
-PATCH {{baseUrl}}get_items/345/
+PATCH {{baseUrl}}items/345/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 {
     "name": "test2222",
@@ -152,29 +152,29 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 }
 
 ###
-DELETE  {{baseUrl}}get_items/346/
+DELETE  {{baseUrl}}items/346/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 
 ### create_or _get item_for_character
-GET {{baseUrl}}get_character_items/
+GET {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 ###
-POST {{baseUrl}}get_character_items/
+POST {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 {
-    "character_list": 118,
+    "character_list": 1,
     "item": 347,
     "quantity": 14
 }
 
 ###
-PATCH {{baseUrl}}get_character_items/452/
+PATCH {{baseUrl}}character_items/452/
 Content-Type: application/json
 Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
@@ -206,6 +206,32 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
     "target_character_list": 2
 }
 
+### character_death add or live add
+GET {{baseUrl}}character_status/
+Content-Type: application/json
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+
+###
+POST {{baseUrl}}character_status/
+Content-Type: application/json
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+
+{
+    "character_list": 1,
+    "success": 1
+}
+###
+DELETE {{baseUrl}}character_status/3/
+Content-Type: application/json
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
 
+###
+GET {{baseUrl}}get_character_spells/
+Content-Type: application/json
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 
+###
+GET {{baseUrl}}personality_traits/
+Content-Type: application/json
+Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64

@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
 from users.models import User
-from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition
+from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition, \
+    CharacterDeath, CharacterSpells, PersonalityTraits
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -143,6 +144,66 @@ class GiveAwayItemPositionSerializer(serializers.ModelSerializer):
                     target_character_positions = CharacterItemPosition.objects.create(character_list_id=target_character_id, item_id = give_item.id, quantity = +1)
 
             return target_character_positions
+
+class CharacterDeathSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterDeath
+        fields = ['id', 'success', 'failure', 'character_list', 'character_death_status']
+
+    def create(self, validated_data):
+
+        failure = validated_data.get('failure')
+        success = validated_data.get('success')
+        character_death_status = validated_data.get('character_death_status')
+
+        char_death_check = CharacterDeath.objects.all().filter(character_list = validated_data['character_list']).exists()
+        char_death_obj = CharacterDeath.objects.all().filter(character_list = validated_data['character_list'])
+
+
+        if char_death_check:
+            
+            for i in char_death_obj:
+                char_obj = i
+
+                if success:
+                    i.success += success
+                    i.save()
+
+                elif failure and i.failure < 3:
+                    i.failure += failure
+                    i.save()
+
+                elif i.failure >= 3 and character_death_status != 'Alive':
+                    i.character_death_status = 'Death'
+                    i.save()
+                    
+                    raise ValidationError("Персонаж Мертв")
+
+                if character_death_status == 'Alive':
+                    i.character_death_status = 'Alive'
+                    i.success = 0
+                    i.failure = 0
+                    i.save()
+        else:
+            char_obj = CharacterDeath.objects.create(**validated_data)
+
+        return char_obj
+
+class CharacterSpellsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterSpells
+        fields = ['id', 'name', 'dmg_bonus', 'dmg_type', 'character_list']
+
+class PersonalityTraitsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = PersonalityTraits
+        fields = ['id', 'name']
 
 
 

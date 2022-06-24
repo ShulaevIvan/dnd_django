@@ -1,8 +1,10 @@
-from rest_framework.views import Response
 from rest_framework.viewsets  import ModelViewSet
 from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer, \
-CharacterItemSerializer, CharacterItemPositionSerializer, GiveAwayItemPositionSerializer
-from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterItem, CharacterItemPosition
+CharacterItemSerializer, CharacterItemPositionSerializer, GiveAwayItemPositionSerializer, CharacterDeathSerializer, \
+CharacterSpellsSerializer, PersonalityTraitsSerializer
+
+from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterItem, CharacterItemPosition, \
+CharacterDeath, CharacterSpells, PersonalityTraits
 
 
 class CharacterListViewSet(ModelViewSet):
@@ -37,5 +39,20 @@ class GiveAwayItemPosition(ModelViewSet):
 
     queryset = CharacterItemPosition.objects.all()
     serializer_class = GiveAwayItemPositionSerializer
+
+class CharacterLiveViewSet(ModelViewSet):
+
+    queryset = CharacterDeath.objects.all()
+    serializer_class = CharacterDeathSerializer
+
+class CharacterSpellsViewSet(ModelViewSet):
+
+    queryset = CharacterSpells.objects.all()
+    serializer_class = CharacterSpellsSerializer
+
+class CharacterPersonalityTraits(ModelViewSet):
+
+    queryset = PersonalityTraits.objects.all()
+    serializer_class = PersonalityTraitsSerializer
 
     

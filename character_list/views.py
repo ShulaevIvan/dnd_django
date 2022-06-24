@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views import View
 from .models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterAtributes, \
-CharacterDeath, CharacterItemPosition
+CharacterDeath, CharacterItemPosition, CharacterSpells, OtherSkills, PersonalityTraits
 
 
 class CharacterListAllView(PermissionRequiredMixin, View):
@@ -41,6 +41,16 @@ class CharacterListItemView(PermissionRequiredMixin, View):
 
                     return modif_default
 
+    def get_max_health(self, char_lvl, char_multipler_helth, modif_stamina):
+
+        tmp_lvl = 0
+        for lvl in char_lvl:
+            tmp_lvl += lvl
+
+        return tmp_lvl * char_multipler_helth[0] + modif_stamina
+
+
+
 
     def get_atr_modifer(self, atr_obj, stats_modif):
 
@@ -75,15 +85,19 @@ class CharacterListItemView(PermissionRequiredMixin, View):
 
 
     def get(self, request, slug):
-        print(slug)
+        
         character = CharacterList.objects.all().filter(name=slug).filter(owner=request.user)
         char_stats = CharacterCharacteristics.objects.all().filter(character_list = character[0].id)
         char_class = CharacterClass.objects.all().filter(character_list = character[0].id)
         char_death = CharacterDeath.objects.all().filter(character_list = character[0].id)
         char_atributes = CharacterAtributes.objects.all().filter(character_list = character[0].id)
         char_items = CharacterItemPosition.objects.all().filter(character_list = character[0].id)
+        char_spells = CharacterSpells.objects.all().filter(character_list = character[0].id)
+        char_other_skills = OtherSkills.objects.all().filter(character_list = character[0].id)
+        char_personality_traits = PersonalityTraits.objects.all().filter(character_list = character[0].id)
         clear_stats = {}
         stats_modif = {}
+
 
         for i in char_stats.values():
             if i == i['id']or i == i['character_list_id']:
@@ -100,16 +114,28 @@ class CharacterListItemView(PermissionRequiredMixin, View):
             stats_modif[k] = self.get_modifer(char_stats, k)
 
         char_atrs = self.get_atr_modifer(char_atributes, stats_modif)
+
+        char_lvl = CharacterClass.objects.filter(character_list = character[0].id).values_list('lvl', flat=True)
+        char_multipler_helth = CharacterList.objects.filter(id = character[0].id).values_list('multipler_health', flat=True)
+        max_health = self.get_max_health(char_lvl, char_multipler_helth, stats_modif['stamina'])
+
+        
+
+            
         template_name = 'character_list.html'
 
         context = {
             'character': character,
             'char_stats': char_stats,
+            'char_max_health': max_health,
             'char_modif': stats_modif,
             'char_atrs': char_atrs,
             'char_death': char_death,
             'char_class': char_class,
-            'char_items': char_items
+            'char_items': char_items,
+            'char_spells': char_spells,
+            'char_person_traits': char_personality_traits,
+            'char_other_skills': char_other_skills
         }
 
         return render(request, template_name, context)

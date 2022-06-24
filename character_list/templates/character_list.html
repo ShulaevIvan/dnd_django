@@ -7,11 +7,19 @@
 
 {% for obj in character %}
 <p>Имя {{obj.name}}</p>
+<p>Опыт {{obj.expirience}}</p>
+<p>Класс защиты {{obj.armor}}</p>
+<p>Скорость {{obj.speed}}</p>
+<p>Инициатива {{obj.iniciative}}</p>
+<p>Макс здоровье {{ char_max_health }}</p>
+<p>Текущ. здоровье {{obj.current_health}}</p>
+<p>Кости здоровья {{obj.multipler_health}}</p>
 {% endfor %}
-
+<h2>Класс</h2>
 {% for class in char_class.all %}
 <p>Класс {{ class.class_name }} | Уровень: {{ class.lvl }} | Основной: {{ class.main }}</p>
 {% endfor %}
+<p></p>
 <h2>Характеристики</h2>
 
 {% for stat in char_stats.all %}
@@ -21,17 +29,41 @@
 <p> Интелект {{ stat.intelligence }} | ({{ char_modif.intelligence }} )</p>
 <p> Мудрость {{ stat.wisdom }} | ({{ char_modif.wisdom }} )</p>
 <p> Харизма {{ stat.charism  }} | ({{ char_modif.charism}} )</p>
+<p></p>
 {% endfor %}
 
 <h2>Навыки</h2>
 {% for k, v in char_atrs.items %}
 <p>{{ k }} : {{ v }}</p>
 {% endfor %}
+<p></p>
+
+<h2>Боевые навыки и заклинания</h2>
+{% for i in char_spells.all %}
+<p>Название {{i.name}}</p>
+<p>Бонус Урона {{i.dmg_bonus}}</p>
+<p>Тип {{i.dmg_type}}</p>
+<p></p>
+{% endfor %}
+
+<h2>Персональные навыки</h2>
+{% for i in char_person_traits %}
+<p>Навык {{i}}</p>
+{% endfor %}
+
+<h2>Прочие навыки</h2>
+{% for i in char_other_skills %}
+<p>{{i.name}}</p>
+{% endfor %}
+
+
 
 <h2>Смерти</h2>
 {% for i in char_death %}
-<p>Попытки / Провалы {{i.failure }}</p>
-<p>Попытки / Успехи {{i.success}}</p>
+<p>Статус: {{i.character_death_status}}</p>
+<p>Провалы {{i.failure }}</p>
+<p>Успехи {{i.success}}</p>
+<p></p>
 {% endfor %}
 
 <h2>Предметы</h2>
@@ -40,7 +72,7 @@
 <p> Название: {{ i.item.name }} </p>
 <p> Редкость: {{ i.item.rarity }}</p>
 <p> Количество: {{i.quantity }}</p>
-<hr/>
+<p></p>
 {% endfor %}
 
 {% endblock content %}

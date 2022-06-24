@@ -5,11 +5,13 @@
 {% block content %}
 
 <h1>CharListAll</h1>
+<a href="#">Добавить персонажа</a>
 
 {% for i in character.all %}
+
 <p>id {{i.id}} </p>
-<p>name {{i.name}} </p>
-<p>slug {{i.slug}} </p>
+<p><a href="{% url 'characters' %}{{i.slug}}">ссылка на персонажа {{i.name}}</a> </p>
+
 {% endfor %}
 
 {% endblock content %}
