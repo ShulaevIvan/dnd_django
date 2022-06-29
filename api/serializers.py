@@ -2,7 +2,8 @@ from rest_framework import serializers
 from rest_framework.validators import ValidationError
 from users.models import User
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition, \
-    CharacterDeath, CharacterSpells, PersonalityTraits
+CharacterDeath, CharacterSpells, PersonalityTraits, CharacterRaceBonuceSkill, CharacterRace, RaceCharacterBonuces , \
+CharacterRaceBonuceAtr
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -122,7 +123,6 @@ class GiveAwayItemPositionSerializer(serializers.ModelSerializer):
 
 
         for i in current_character_items:
-            print(i.item)
 
             if i.item == give_item:
                 qnt_obj = CharacterItemPosition.objects.all().filter(character_list = current_character, item=i.item)
@@ -205,6 +205,44 @@ class PersonalityTraitsSerializer(serializers.ModelSerializer):
         model = PersonalityTraits
         fields = ['id', 'name']
 
+class CharacterRaceBonuceSkillSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterRaceBonuceSkill
+        fields = ['id', 'name', 'description', 'dmg_bonus', 'dmg_type']
+
+class CharacterRaceSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterRace
+        fields = ['id','name']
+
+class CharacterRaceBonuceAtrSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = CharacterRaceBonuceAtr
+        fields = [  'id',
+                    'strength_bonuce', 
+                    'agility_bonuce', 
+                    'stamina_bonuce', 
+                    'intelligence_bonuce',
+                    'wisdom_bonuce',
+                    'charism_bonuce'
+                ]
+
+class RaceCharacterBonucesSerialier(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = RaceCharacterBonuces
+        fields = ['id', 'character_list_id', 'bonuce_skills', 'bonuce_atrs']
+        depth = 1
+
+    def create(self, validated_data):
+        print(validated_data)
 
 
 

@@ -1,8 +1,10 @@
+from xml.etree.ElementInclude import include
 from django.contrib import admin
 
 from .models import CharacterItem, CharacterList, CharacterCharacteristics, CharacterClass, \
     CharacterAtributes, CharacterSpells, OtherSkills, PersonalityTraits, CharacterItem, \
-    CharacterItemPosition, CharacterDeath
+    CharacterItemPosition, CharacterDeath, RaceCharacterBonuces, CharacterRace, CharacterRaceBonuceSkill, \
+    CharacterRaceBonuceAtr
 
 class AdminCharacterClass(admin.TabularInline):
     
@@ -44,6 +46,48 @@ class AdminCharacterDeath(admin.TabularInline):
     model = CharacterDeath
     extra = 0
 
+class AdminRaceCharacterBonuces(admin.TabularInline):
+
+    model = RaceCharacterBonuces
+    extra = 0
+
+class AdminCharacterRaceBonuceSkill(admin.TabularInline):
+
+    model = CharacterRaceBonuceSkill
+    extra = 0
+
+@admin.register(CharacterRace)
+class AdminCharacterRace(admin.ModelAdmin):
+
+    list_display = ['id', 'name']
+
+    def has_module_permission(self, request):
+        return False
+
+@admin.register(CharacterRaceBonuceSkill)
+class AdminCharacterRaceBonuceSkill(admin.ModelAdmin):
+
+    list_display =['id', 'description', 'dmg_bonus', 'dmg_type']
+
+    def has_module_permission(self, request):
+        return False
+
+@admin.register(CharacterRaceBonuceAtr)
+class AdminCharacterRaceBonuceAtr(admin.ModelAdmin):
+
+    list_display =[
+        'id', 
+        'strength_bonuce',
+        'agility_bonuce', 
+        'stamina_bonuce',
+        'intelligence_bonuce',
+        'wisdom_bonuce',
+        'charism_bonuce'
+        ]
+
+    def has_module_permission(self, request):
+        return False
+
 @admin.register(CharacterItem)
 class AdminCharacterItem(admin.ModelAdmin):
 
@@ -63,7 +107,12 @@ class AdminCharacterList(admin.ModelAdmin):
         AdminPersonalityTraits,
         AdminCharacterItemPosition,
         AdminCharacterDeath,
-        ]
+        AdminRaceCharacterBonuces
+    ]
+
+
+
+
 
 
 

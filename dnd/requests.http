@@ -235,3 +235,112 @@ Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 GET {{baseUrl}}personality_traits/
 Content-Type: application/json
 Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+
+
+###
+GET {{baseUrl}}character_race_skills/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+###
+POST {{baseUrl}}character_race_skills/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+   "name": "skil2",
+   "description": "ersffdsdfsf",
+   "dmg_bonus": null,
+   "dmg_type": "phis" 
+}
+
+###
+PATCH  {{baseUrl}}character_race_skills/1/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+   "id": 1,
+   "name": "skil3",
+   "description": "ersffdsdfsf",
+   "dmg_bonus": null,
+   "dmg_type": "phis" 
+}
+
+###
+DELETE {{baseUrl}}character_race_skills/2/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+###
+GET {{baseUrl}}character_race/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+###
+POST {{baseUrl}}character_race/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+    "name": "test_race"
+}
+
+###
+PATCH {{baseUrl}}character_race/2/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+    "name": "test_race_2"
+}
+
+###
+DELETE {{baseUrl}}character_race/2/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+###
+GET {{baseUrl}}character_race_atrs/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+###
+POST {{baseUrl}}character_race_atrs/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+    "strength_bonuce": 0,
+    "agility_bonuce": 2,
+    "stamina_bonuce": 0,
+    "intelligence_bonuce": 0,
+    "wisdom_bonuce": 0,
+    "charism_bonuce": 0
+}
+
+###
+PATCH {{baseUrl}}character_race_atrs/2/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+{
+    "strength_bonuce": 0,
+    "agility_bonuce": 0,
+    "stamina_bonuce": 0,
+    "intelligence_bonuce": 0,
+    "wisdom_bonuce": 0,
+    "charism_bonuce": 0
+}
+
+###
+DELETE  {{baseUrl}}character_race_atrs/2/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+
+
+###
+GET {{baseUrl}}character_race_bonuces/
+Content-Type: application/json
+Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+

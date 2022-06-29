@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 from users.models import User
 
@@ -181,5 +182,68 @@ class CharacterItemPosition(models.Model):
     target_character_list = models.IntegerField(blank=True, null=True)
 
 
+class CharacterRace(models.Model):
+
+    name = models.CharField(max_length=200)
+    race_bonuces = models.ManyToManyField(CharacterList, related_name='char_race', through='RaceCharacterBonuces')
+
+    class Meta:
+
+        verbose_name = 'Расса'
+        verbose_name_plural = 'Рассы'
+
+    def __str__(self):
+
+        return self.name
+
+class CharacterRaceBonuceSkill(models.Model):
+
+    name = models.CharField(max_length=255)
+    description = models.TextField(null=True, blank=True)
+    dmg_bonus = models.IntegerField(default=0, blank=True, null=True)
+    dmg_type = models.CharField(max_length=150, blank=True, null=True)
+
+    class Meta:
+
+        verbose_name = 'Рассовая способность'
+        verbose_name_plural = 'Рассовые Способности'
+
+    def __str__(self):
+
+        return self.name
+
+class CharacterRaceBonuceAtr(models.Model):
+
+    strength_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    agility_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    stamina_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    intelligence_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    wisdom_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    charism_bonuce = models.IntegerField(default=0, null=True, blank=True)
+
+    class Meta:
+
+        verbose_name = 'Бонус характеристик'
+        verbose_name_plural = 'Бонусы характеристик'
+
+    def __str__(self):
+
+        return 'Бонусы характеристик'
 
 
+class RaceCharacterBonuces(models.Model):
+
+    character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='char_race_bonuce')
+    race = models.ForeignKey(CharacterRace, on_delete=models.CASCADE, related_name='char_race_bonuce')
+    bonuce_skills = models.ForeignKey(CharacterRaceBonuceSkill, on_delete=models.CASCADE, related_name='char_race_bonuce_skill')
+    bonuce_atrs = models.ForeignKey(CharacterRaceBonuceAtr, on_delete=models.CASCADE, related_name='char_race_bonuce')
+
+    class Meta:
+
+        verbose_name = 'Расса и бонусы'
+        verbose_name_plural = 'Рассовые бонусы'
+    
+    def __str__(self):
+
+        return 'Рассовые бонусы'
+    

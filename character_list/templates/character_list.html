@@ -15,6 +15,19 @@
 <p>Текущ. здоровье {{obj.current_health}}</p>
 <p>Кости здоровья {{obj.multipler_health}}</p>
 {% endfor %}
+
+<h2>Расса</h2>
+{% for obj in race_bonuces.all %}
+<p>Имя {{obj.race.name}}</p>
+<h2>Рассовыые навыки</h2>
+<p>Имя способности {{obj.bonuce_skills.name}}</p>
+<p>Описание {{obj.bonuce_skills.description}}</p>
+<p>Тип Урона {{obj.bonuce_skills.dmg_type}}</p>
+<p>Бонус Урона {{obj.bonuce_skills.dmg_bonus}}</p>
+
+{% endfor %}
+
+
 <h2>Класс</h2>
 {% for class in char_class.all %}
 <p>Класс {{ class.class_name }} | Уровень: {{ class.lvl }} | Основной: {{ class.main }}</p>
@@ -23,12 +36,12 @@
 <h2>Характеристики</h2>
 
 {% for stat in char_stats.all %}
-<p> Сила {{ stat.strength }} | ({{ char_modif.strength }} )</p>
-<p> Ловкость {{ stat.agility }} |  ({{ char_modif.agility }} )</p>
-<p> Выносливость {{ stat.stamina }} | ({{ char_modif.stamina }} )</p>
-<p> Интелект {{ stat.intelligence }} | ({{ char_modif.intelligence }} )</p>
-<p> Мудрость {{ stat.wisdom }} | ({{ char_modif.wisdom }} )</p>
-<p> Харизма {{ stat.charism  }} | ({{ char_modif.charism}} )</p>
+<p> Сила {{ stat.strength | add:race_bonuces_int.strength_bonuce }} | ({{ char_modif.strength }} )</p>
+<p> Ловкость {{ stat.agility | add:race_bonuces_int.agility_bonuce }} |  ({{ char_modif.agility }} )</p>
+<p> Выносливость {{ stat.stamina | add:race_bonuces_int.stamina_bonuce }} | ({{ char_modif.stamina }} )</p>
+<p> Интелект {{ stat.intelligence | add:race_bonuces_int.intelligence_bonuce }} | ({{ char_modif.intelligence }} )</p>
+<p> Мудрость {{ stat.wisdom | add:race_bonuces_int.wisdom_bonuce }} | ({{ char_modif.wisdom }} )</p>
+<p> Харизма {{ stat.charism | add:race_bonuces_int.charism_bonuce  }} | ({{ char_modif.charism}} )</p>
 <p></p>
 {% endfor %}
 

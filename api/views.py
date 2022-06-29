@@ -1,10 +1,12 @@
 from rest_framework.viewsets  import ModelViewSet
 from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer, \
 CharacterItemSerializer, CharacterItemPositionSerializer, GiveAwayItemPositionSerializer, CharacterDeathSerializer, \
-CharacterSpellsSerializer, PersonalityTraitsSerializer
+CharacterSpellsSerializer, PersonalityTraitsSerializer, RaceCharacterBonucesSerialier, CharacterRaceBonuceSkillSerializer, \
+CharacterRaceSerializer, CharacterRaceBonuceAtrSerializer
 
 from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterItem, CharacterItemPosition, \
-CharacterDeath, CharacterSpells, PersonalityTraits
+CharacterDeath, CharacterSpells, PersonalityTraits, CharacterRaceBonuceSkill, CharacterRace, RaceCharacterBonuces, \
+CharacterRaceBonuceAtr
 
 
 class CharacterListViewSet(ModelViewSet):
@@ -55,4 +57,22 @@ class CharacterPersonalityTraits(ModelViewSet):
     queryset = PersonalityTraits.objects.all()
     serializer_class = PersonalityTraitsSerializer
 
-    
+class CharacterRaceBonuceSkill(ModelViewSet):
+
+    queryset = CharacterRaceBonuceSkill.objects.all()
+    serializer_class = CharacterRaceBonuceSkillSerializer
+
+class CharacterRaceViewSet(ModelViewSet):
+
+    queryset = CharacterRace.objects.all()
+    serializer_class = CharacterRaceSerializer
+
+class CharacterRaceBonuceAtr(ModelViewSet):
+
+    queryset = CharacterRaceBonuceAtr.objects.all()
+    serializer_class = CharacterRaceBonuceAtrSerializer
+
+class RaceCharacterBonuces(ModelViewSet):
+
+    queryset = RaceCharacterBonuces.objects.all()
+    serializer_class = RaceCharacterBonucesSerialier
