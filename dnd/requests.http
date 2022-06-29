@@ -3,16 +3,15 @@
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 ###
 POST {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 {
-
-    "name": "testing_character232562",
+    "name": "test",
     "player_name": "Vlad",
     "expirience": 0,
     "armor": 5,
@@ -26,7 +25,7 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ###
 PATCH {{baseUrl}}character_list/2/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
 
@@ -45,7 +44,7 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 
 DELETE {{baseUrl}}character_list/97/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ### character_class
 
@@ -54,17 +53,17 @@ GET {{baseUrl}}character_class/
 ###
 POST  {{baseUrl}}character_class/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 {
     "class_name": "Warrior",
-    "character_list": 98
+    "character_list": 2
 }
 
 ###
 PATCH  {{baseUrl}}character_class/12/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "class_name": "Archangel",
@@ -75,7 +74,7 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ###
 DELETE  {{baseUrl}}character_class/11/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "class_name": "Archangel",
@@ -86,21 +85,13 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ### character_stats
 GET {{baseUrl}}character_characteristc/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
-{
-    "strength": 25,
-    "agility": 21,
-    "stamina": 15,
-    "intelligence": 17,
-    "wisdom": 22,
-    "charism": 19
-}
 
 ###
 POST {{baseUrl}}character_characteristc/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "strength": 15,
@@ -109,13 +100,13 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
     "intelligence": 12,
     "wisdom": 11,
     "charism": 12,
-    "character_list": 98
+    "character_list": 2
 }
 
 ###
 PATCH {{baseUrl}}character_characteristc/12/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "strength": 5,
@@ -130,12 +121,12 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ### create_or _get item
 GET {{baseUrl}}items/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 POST {{baseUrl}}items/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "name": "2123test1",
@@ -144,7 +135,7 @@ Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 ###
 PATCH {{baseUrl}}items/345/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "name": "test2222",
@@ -154,18 +145,18 @@ Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 ###
 DELETE  {{baseUrl}}items/346/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 
 ### create_or _get item_for_character
 GET {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 POST {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "character_list": 1,
@@ -176,7 +167,7 @@ Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 ###
 PATCH {{baseUrl}}character_items/452/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "character_list": 94,
@@ -187,18 +178,18 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ###
 DELETE  {{baseUrl}}get_character_items/453/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 
 ###
 GET {{baseUrl}}give_character_items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 POST {{baseUrl}}give_character_items/
 Content-Type: application/json
-Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "character_list": 1,
@@ -209,12 +200,12 @@ Authorization: Token 5a5ad65850eb90022123759fd4086651111fe6b9
 ### character_death add or live add
 GET {{baseUrl}}character_status/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 POST {{baseUrl}}character_status/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "character_list": 1,
@@ -223,41 +214,41 @@ Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
 ###
 DELETE {{baseUrl}}character_status/3/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 
 ###
 GET {{baseUrl}}get_character_spells/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 GET {{baseUrl}}personality_traits/
 Content-Type: application/json
-Authorization: Token b1c858f8ba87a75e27f788abd14196e46e2c0d64
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 
 ###
 GET {{baseUrl}}character_race_skills/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 POST {{baseUrl}}character_race_skills/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
-   "name": "skil2",
+   "name": "skil23",
    "description": "ersffdsdfsf",
-   "dmg_bonus": null,
+   "dmg_bonus": 2,
    "dmg_type": "phis" 
 }
 
 ###
 PATCH  {{baseUrl}}character_race_skills/1/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
    "id": 1,
@@ -270,26 +261,26 @@ Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
 ###
 DELETE {{baseUrl}}character_race_skills/2/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 GET {{baseUrl}}character_race/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 ###
 POST {{baseUrl}}character_race/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
-    "name": "test_race"
+    "name": "test_race33"
 }
 
 ###
 PATCH {{baseUrl}}character_race/2/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "name": "test_race_2"
@@ -298,31 +289,32 @@ Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
 ###
 DELETE {{baseUrl}}character_race/2/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
 GET {{baseUrl}}character_race_atrs/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 ###
 POST {{baseUrl}}character_race_atrs/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 {
-    "strength_bonuce": 0,
+    "character_list": 2,
+    "strength_bonuce": 5,
     "agility_bonuce": 2,
-    "stamina_bonuce": 0,
-    "intelligence_bonuce": 0,
-    "wisdom_bonuce": 0,
-    "charism_bonuce": 0
+    "stamina_bonuce": 5,
+    "intelligence_bonuce": 2,
+    "wisdom_bonuce": 1,
+    "charism_bonuce": 2
 }
 
 ###
-PATCH {{baseUrl}}character_race_atrs/2/
+PATCH {{baseUrl}}character_race_atrs/1/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
     "strength_bonuce": 0,
@@ -334,7 +326,7 @@ Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
 }
 
 ###
-DELETE  {{baseUrl}}character_race_atrs/2/
+DELETE  {{baseUrl}}character_race_atrs/3/
 Content-Type: application/json
 Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
 
@@ -342,5 +334,17 @@ Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
 ###
 GET {{baseUrl}}character_race_bonuces/
 Content-Type: application/json
-Authorization: Token 09ee1f38bf6cd960fd3dd84a60f61c8a72b414c3
+Authorization: 3d79e0936534a23b658556bcab40d7c6c4ed1d50
+###
+POST {{baseUrl}}character_race_bonuces/
+Content-Type: application/json
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
+{
+   "character_list": 2,
+   "race": 1,
+   "bonuce_skills": 3,
+   "bonuce_atrs": 8
+
+
+}

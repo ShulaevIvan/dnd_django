@@ -7,7 +7,7 @@ from .models import CharacterList, CharacterCharacteristics, CharacterClass, Cha
 CharacterDeath, CharacterItemPosition, CharacterRaceBonuceAtr, CharacterSpells, OtherSkills, PersonalityTraits, RaceCharacterBonuces
 
 
-class CharacterListAllView(PermissionRequiredMixin, View):
+class CharacterListAllView(View):
 
     permission_required = 'character_list.view_post'
 
@@ -22,7 +22,7 @@ class CharacterListAllView(PermissionRequiredMixin, View):
         return render(request, template_name, context)
 
 
-class CharacterListItemView(PermissionRequiredMixin, View):
+class CharacterListItemView(View):
 
     permission_required = 'character_list.view_post'
 
@@ -88,25 +88,23 @@ class CharacterListItemView(PermissionRequiredMixin, View):
 
     def get_race(self, character):
 
-        atr_bonuce = CharacterRaceBonuceAtr.objects.all().filter(char_race_bonuce = character[0].id)
-        clear_atr_bonuces = dict()
-        for atr_obj in atr_bonuce.values():
-            for v, k in enumerate(atr_obj):
-                if atr_obj[k] > 0 and k != 'id':
-                    clear_atr_bonuces[k] = atr_obj[k]
-                elif atr_obj[k] == 0 and k != 'id':
-                    clear_atr_bonuces[k] = atr_obj[k]
+            atr_bonuce = CharacterRaceBonuceAtr.objects.all().filter(character_list = character[0].id)
+            clear_atr_bonuces = dict()
+            for atr_obj in atr_bonuce.values():
+                for v, k in enumerate(atr_obj):
+                    if atr_obj[k] > 0 and k != 'id' and k != 'character_list_id':
+                        clear_atr_bonuces[k] = atr_obj[k]
+                    elif atr_obj[k] == 0 and k != 'id' and k != 'character_list_id':
+                        clear_atr_bonuces[k] = atr_obj[k]
+            for v, k in enumerate(list(clear_atr_bonuces)):
 
-        for v, k in enumerate(list(clear_atr_bonuces)):
+                if clear_atr_bonuces[k] % 2 == 0:
+                    clear_atr_bonuces[f'modif_'+k] = round(clear_atr_bonuces[k] / 2)
+                else:
+                    clear_atr_bonuces[f'modif_'+k] = round((clear_atr_bonuces[k] -1) / 2)
 
-            if clear_atr_bonuces[k] % 2 == 0:
-                clear_atr_bonuces[f'modif_'+k] = round(clear_atr_bonuces[k] / 2)
-            else:
-                clear_atr_bonuces[f'modif_'+k] = round((clear_atr_bonuces[k] -1) / 2)
-
-        return clear_atr_bonuces
-
-        
+            return clear_atr_bonuces
+            
     def get(self, request, slug):
         
         character = CharacterList.objects.all().filter(name=slug).filter(owner=request.user)
@@ -122,8 +120,25 @@ class CharacterListItemView(PermissionRequiredMixin, View):
         clear_stats = {}
         stats_modif = {}
 
-        clear_race_bonuces = self.get_race(character)
 
+        if CharacterRaceBonuceAtr.objects.all().filter(character_list_id = character[0].id).exists():
+            clear_race_bonuces = self.get_race(character)
+        else:
+            clear_race_bonuces = {
+                'strength_bonuce': 0, 
+                'agility_bonuce': 0, 
+                'stamina_bonuce': 0, 
+                'intelligence_bonuce': 0, 
+                'wisdom_bonuce': 0, 
+                'charism_bonuce': 0, 
+                'modif_strength_bonuce': 0, 
+                'modif_agility_bonuce': 0, 
+                'modif_stamina_bonuce': 0, 
+                'modif_intelligence_bonuce': 0, 
+                'modif_wisdom_bonuce': 0, 
+                'modif_charism_bonuce': 0
+            }
+        
         for i in char_stats.values():
             if i == i['id'] or i == i['character_list_id']:
                 continue
@@ -152,7 +167,6 @@ class CharacterListItemView(PermissionRequiredMixin, View):
         max_health = self.get_max_health(char_lvl, char_multipler_helth, stats_modif['stamina'])
 
         template_name = 'character_list.html'
-        
         context = {
             'character': character,
             'char_stats': char_stats,

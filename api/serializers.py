@@ -1,3 +1,4 @@
+from unicodedata import name
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
 from users.models import User
@@ -12,7 +13,6 @@ class CharacterClassSerializer(serializers.ModelSerializer):
 
         model = CharacterClass
         fields = ['id', 'main', 'class_name', 'lvl', 'character_list']
-
 
     def create(self, validated_data):
         class_added = validated_data.pop('class_name')
@@ -64,8 +64,9 @@ class CharacterListSerializer(serializers.ModelSerializer):
         read_only_fields = ['owner']
 
     def create(self, validated_data):
+        print(validated_data)
 
-        owner = validated_data.pop('owner')
+        owner = validated_data.pop('user')
         slug = validated_data.pop('name')
         characters = User.objects.all().filter(email=owner)
 
@@ -78,7 +79,6 @@ class CharacterListSerializer(serializers.ModelSerializer):
 
 
 class CharacterItemSerializer(serializers.ModelSerializer):
-
 
     class Meta:
 
@@ -225,6 +225,7 @@ class CharacterRaceBonuceAtrSerializer(serializers.ModelSerializer):
 
         model = CharacterRaceBonuceAtr
         fields = [  'id',
+                    'character_list',
                     'strength_bonuce', 
                     'agility_bonuce', 
                     'stamina_bonuce', 
@@ -235,16 +236,11 @@ class CharacterRaceBonuceAtrSerializer(serializers.ModelSerializer):
 
 class RaceCharacterBonucesSerialier(serializers.ModelSerializer):
 
+    
     class Meta:
 
         model = RaceCharacterBonuces
-        fields = ['id', 'character_list_id', 'bonuce_skills', 'bonuce_atrs']
-        depth = 1
-
-    def create(self, validated_data):
-        print(validated_data)
-
-
+        fields = ['id','character_list_id', 'race', 'bonuce_skills', 'bonuce_atrs']
 
         
         

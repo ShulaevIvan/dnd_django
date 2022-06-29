@@ -220,6 +220,7 @@ class CharacterRaceBonuceAtr(models.Model):
     intelligence_bonuce = models.IntegerField(default=0, null=True, blank=True)
     wisdom_bonuce = models.IntegerField(default=0, null=True, blank=True)
     charism_bonuce = models.IntegerField(default=0, null=True, blank=True)
+    character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='character_list')
 
     class Meta:
 
