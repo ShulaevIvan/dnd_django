@@ -1,4 +1,3 @@
-from math import modf
 from django.shortcuts import render
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views import View
@@ -161,6 +160,17 @@ class CharacterListItemView(View):
             stats_modif[k] = self.get_modifer(char_stats, k, race_m)
             
         char_atrs = self.get_atr_modifer(char_atributes, stats_modif)
+
+        if len(stats_modif) == 0:
+            
+            stats_modif ={
+                'strength': 0, 
+                'agility': 0, 
+                'stamina': 0, 
+                'intelligence': 0, 
+                'wisdom': 0, 
+                'charism': 0
+            }
 
         char_lvl = CharacterClass.objects.filter(character_list = character[0].id).values_list('lvl', flat=True)
         char_multipler_helth = CharacterList.objects.filter(id = character[0].id).values_list('multipler_health', flat=True)

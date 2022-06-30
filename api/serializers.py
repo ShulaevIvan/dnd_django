@@ -54,6 +54,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = CharacterList
+
         fields = [
             'id', 'owner', 'name', 'player_name', 'expirience', 
             'armor', 'speed', 'iniciative',
@@ -64,12 +65,12 @@ class CharacterListSerializer(serializers.ModelSerializer):
         read_only_fields = ['owner']
 
     def create(self, validated_data):
-        print(validated_data)
 
         owner = validated_data.pop('user')
         slug = validated_data.pop('name')
         characters = User.objects.all().filter(email=owner)
-
+        char_stats = validated_data.get('char_stats')
+        character_list = User.objects.all().filter(id=characters[0].id)
         for i in characters:
             
             user_id = i.id
@@ -240,7 +241,17 @@ class RaceCharacterBonucesSerialier(serializers.ModelSerializer):
     class Meta:
 
         model = RaceCharacterBonuces
-        fields = ['id','character_list_id', 'race', 'bonuce_skills', 'bonuce_atrs']
+        fields = ['id','character_list', 'race', 'bonuce_skills', 'bonuce_atrs']
+
+    def create(self, validated_data):
+
+        character_id = validated_data.pop('character_list')
+        print(character_id)
+
+        for obj in validated_data:
+            race_b, create_tuple = RaceCharacterBonuces.objects.update_or_create(character_list = character_id, **validated_data )
+
+        return race_b
 
         
         
