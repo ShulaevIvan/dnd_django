@@ -2,7 +2,7 @@ from xml.etree.ElementInclude import include
 from django.contrib import admin
 
 from .models import CharacterItem, CharacterList, CharacterCharacteristics, CharacterClass, \
-    CharacterAtributes, CharacterSpells, OtherSkills, PersonalityTraits, CharacterItem, \
+    CharacterAttributes, CharacterSpells, OtherSkills, PersonalityTraits, CharacterItem, \
     CharacterItemPosition, CharacterDeath, RaceCharacterBonuces, CharacterRace, CharacterRaceBonuceSkill, \
     CharacterRaceBonuceAtr
 
@@ -16,9 +16,9 @@ class AdminCharacterCharacteristics(admin.TabularInline):
     model = CharacterCharacteristics
     extra = 0
 
-class AdminCharacterAtributes(admin.TabularInline):
+class AdminCharacterAttributes(admin.TabularInline):
 
-    model = CharacterAtributes
+    model = CharacterAttributes
     extra = 0
 
 class AdminCharacterSpells(admin.TabularInline):
@@ -96,12 +96,17 @@ class AdminCharacterItem(admin.ModelAdmin):
 @admin.register(CharacterList)
 class AdminCharacterList(admin.ModelAdmin):
 
-    list_display = ['id', 'name']
+    list_display = [
+        'id', 
+        'name',
+        'expirience',
+        'worldview'
+    ]
     prepopulated_fields = {'slug': ('name',)}
     inlines = [
         AdminCharacterClass,
         AdminCharacterCharacteristics,
-        AdminCharacterAtributes,
+        AdminCharacterAttributes,
         AdminCharacterSpells,
         AdminOtherSkills,
         AdminPersonalityTraits,

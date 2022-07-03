@@ -1,10 +1,9 @@
-from unicodedata import name
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
 from users.models import User
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition, \
 CharacterDeath, CharacterSpells, PersonalityTraits, CharacterRaceBonuceSkill, CharacterRace, RaceCharacterBonuces , \
-CharacterRaceBonuceAtr
+CharacterRaceBonuceAtr, OtherSkills, CharacterAttributes
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -59,7 +58,9 @@ class CharacterListSerializer(serializers.ModelSerializer):
             'id', 'owner', 'name', 'player_name', 'expirience', 
             'armor', 'speed', 'iniciative',
             'max_health', 'current_health',
-            'multipler_health', 'char_class', 'char_stats'
+            'multipler_health', 'char_class', 'char_stats',
+            'worldview','age', 'weight', 'height', 'appearance',
+            'history' 
         ]
 
         read_only_fields = ['owner']
@@ -69,8 +70,7 @@ class CharacterListSerializer(serializers.ModelSerializer):
         owner = validated_data.pop('user')
         slug = validated_data.pop('name')
         characters = User.objects.all().filter(email=owner)
-        char_stats = validated_data.get('char_stats')
-        character_list = User.objects.all().filter(id=characters[0].id)
+
         for i in characters:
             
             user_id = i.id
@@ -197,14 +197,23 @@ class CharacterSpellsSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = CharacterSpells
-        fields = ['id', 'name', 'dmg_bonus', 'dmg_type', 'character_list']
+        fields = ['id', 
+                  'name', 
+                  'dmg_bonus', 
+                  'dmg_type',  
+                  'base_stat', 
+                  'difficult',
+                  'lvl_spell',
+                  'limit_per_day',
+                  'character_list'
+                ]
 
 class PersonalityTraitsSerializer(serializers.ModelSerializer):
 
     class Meta:
 
         model = PersonalityTraits
-        fields = ['id', 'name']
+        fields = ['id', 'name','ideal', 'bond', 'flaw', 'character_list']
 
 class CharacterRaceBonuceSkillSerializer(serializers.ModelSerializer):
 
@@ -237,7 +246,6 @@ class CharacterRaceBonuceAtrSerializer(serializers.ModelSerializer):
 
 class RaceCharacterBonucesSerialier(serializers.ModelSerializer):
 
-    
     class Meta:
 
         model = RaceCharacterBonuces
@@ -246,12 +254,48 @@ class RaceCharacterBonucesSerialier(serializers.ModelSerializer):
     def create(self, validated_data):
 
         character_id = validated_data.pop('character_list')
-        print(character_id)
 
         for obj in validated_data:
             race_b, create_tuple = RaceCharacterBonuces.objects.update_or_create(character_list = character_id, **validated_data )
 
         return race_b
+
+class OtherSkillsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = OtherSkills
+        fields = ['name', 'character_list']
+
+class CharacterAttributesSerializer(serializers.ModelSerializer):
+
+
+
+    class Meta:
+
+        model = CharacterAttributes
+        fields = [
+            'athletics','acrobatics','sleight_of_hand',
+            'stealth','analysis','history','magic',
+            'nature','religion','attentiveness',
+            'survival','medicine','insight','animal_care',
+            'performance','intimidation','deception','conviction',
+            'character_list'
+        ]
+        related_fields = ['character_list']
+        salary = serializers.IntegerField(source='character_list.id')
+
+    def update(self, instance, validated_data):
+
+        character_list = validated_data.pop('character_list')
+        character_atrs = super().update(instance, validated_data)
+        
+        character, create_tuple = CharacterAttributes.objects.update_or_create(character_list = character_list, **validated_data)
+        character.save()
+
+        return character_atrs
+
+
 
         
         

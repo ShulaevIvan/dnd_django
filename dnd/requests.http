@@ -3,54 +3,54 @@
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
+Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
 
 ###
 POST {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
+Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
 
 {
-    "name": "t25dg6s5",
+    "name": "t25dg6s52",
     "player_name": "Vlad",
     "expirience": 0,
     "armor": 5,
     "speed": 30,
     "iniciative": 0,
-    "max_health": 1000,
-    "current_health": 1000,
+    "max_health": 100,
+    "current_health": 100,
     "multipler_health": 6
 }
 
 ###
 PATCH {{baseUrl}}character_list/2/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 37a4504c12b10cbd35dd5398bb4101ce0ff71299
 
 {
 
-    "name": "test1dd",
+    "name": "t25dg6s52",
     "player_name": "test",
     "expirience": 0,
     "armor": 0,
     "speed": 0,
-    "iniciative": 0,
-    "max_health": 0,
-    "current_health": 0,
-    "multipler_health": 6
+    "iniciative": 10,
+    "max_health": 10,
+    "current_health": 10,
+    "multipler_health": 8
 }
 
 ###
 
 DELETE {{baseUrl}}character_list/4/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 7f69ca3c3a2d53974a56013bb5d9aa32f99f0021
 
 
 ### CharacterRace
 GET {{baseUrl}}character_race_skills/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 ###
 POST {{baseUrl}}character_race_skills/
@@ -176,21 +176,22 @@ GET {{baseUrl}}character_class/
 ###
 POST  {{baseUrl}}character_class/
 Content-Type: application/json
-Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
+Authorization: Token 37a4504c12b10cbd35dd5398bb4101ce0ff71299
 
 {
     "class_name": "Warrior",
-    "character_list": 20
+    "character_list": 2
 }
 
 ###
-PATCH  {{baseUrl}}character_class/12/
+PATCH  {{baseUrl}}character_class/1/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 37a4504c12b10cbd35dd5398bb4101ce0ff71299
 
 {
     "class_name": "Archangel",
     "character_list": 2,
+    "lvl": 5,
     "main": "False"
 }
 
@@ -274,17 +275,17 @@ Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 ### create_or _get item_for_character
 GET {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 ###
 POST {{baseUrl}}character_items/
 Content-Type: application/json
-Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+Authorization: Token 121b96c5787370da61eb490657a92d59d717192f
 
 {
-    "character_list": 1,
-    "item": 347,
-    "quantity": 14
+    "character_list": 20,
+    "item": 1,
+    "quantity": 1
 }
 
 ###
@@ -331,8 +332,8 @@ Content-Type: application/json
 Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 {
-    "character_list": 1,
-    "success": 1
+    "character_list": 20,
+    "success": 0
 }
 ###
 DELETE {{baseUrl}}character_status/3/
@@ -346,8 +347,150 @@ Content-Type: application/json
 Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
 
 ###
+POST {{baseUrl}}get_character_spells/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_spell",
+    "dmg_bonus" : 5,
+    "dmg_type" : "magic",
+    "character_list": 20
+}
+
+###
+PATCH  {{baseUrl}}get_character_spells/2/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_spell",
+    "dmg_bonus" : 5,
+    "dmg_type" : "magic",
+    "character_list": 20
+}
+
+###
+DELETE   {{baseUrl}}get_character_spells/1/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+
+
+###
 GET {{baseUrl}}personality_traits/
 Content-Type: application/json
 Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+###
+POST {{baseUrl}}personality_traits/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_personal_trait",
+    "character_list": 20,
+    "worldview": "neutral",
+    "age": 22,
+    "weight": "176",
+    "height" : "150",
+    "bonds":"test_bound",
+    "flaws": "test_flaws",
+    "appearance": "testsetsetsetsetsetsetset",
+    "history": "asdasddddddddddddddddddddddddd",
+    "treasures" : "testsetestsetset"
+
+}
+
+###
+PATCH  {{baseUrl}}personality_traits/4/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_personal_trait",
+    "character_list": 20
+}
+
+###
+DELETE  {{baseUrl}}personality_traits/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+###
+GET {{baseUrl}}character_other_skill/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+###
+POST {{baseUrl}}character_other_skill/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_other_skill",
+    "character_list": 20
+}
+
+###
+PATCH  {{baseUrl}}character_other_skill/1/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+{
+    "name": "test_other_skill",
+    "character_list": 20
+}
+
+###
+DELETE  {{baseUrl}}character_other_skill/1/
+Content-Type: application/json
+Authorization: Token 7853149a9c410379f1b87dff7e0fe0866f19a268
+
+###
+GET {{baseUrl}}character_attributes/
+Content-Type: application/json
+Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
+
+###
+PATCH {{baseUrl}}character_attributes/1/
+Content-Type: application/json
+Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
+
+
+{
+    "athletics": 5,
+    "acrobatics": 5,
+    "sleight_of_hand": 5,
+    "stealth": 0,
+    "analysis": 0,
+    "history": 0,
+    "magic": 0,
+    "nature": 0,
+    "religion": 0,
+    "attentiveness":5,
+    "survival": 0,
+    "medicine": 5,
+    "insight": 0,
+    "animal_care": 0,
+    "performance": 0,
+    "intimidation": 0,
+    "deception": 5,
+    "conviction": 0,
+
+    "character_list": 1
+}
+
+###
+GET {{baseUrl}}roll/
+Content-Type: application/json
+Authorization: Token 7b242dcf32e14ca4536562f71386b3839ea34ae7
+
+{
+    "dice": 20,
+    "count": 1,
+    "modif": 1
+}
+
 
 

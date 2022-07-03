@@ -1,14 +1,11 @@
-from unicodedata import name
+
 from rest_framework.routers import DefaultRouter
-
-from character_list.models import CharacterRace
-
-
-
+from django.urls import path, include
 
 from .views import CharacterClassViewSet, CharacterListViewSet, CharacterCharacteristcViewSet, CharacterItemViewset, \
 CharacterItemPositionViewSet, GiveAwayItemPosition, CharacterLiveViewSet, CharacterSpellsViewSet, CharacterPersonalityTraits, \
-RaceCharacterBonuces, CharacterRaceViewSet, CharacterRaceBonuceSkill, CharacterRaceBonuceAtr
+RaceCharacterBonuces, CharacterRaceViewSet, CharacterRaceBonuceSkill, CharacterRaceBonuceAtr, CharacterOtherSkill, \
+RollD4View, CharacterAttributesView
 
 r = DefaultRouter()
 r.register('character_list', CharacterListViewSet)
@@ -24,5 +21,9 @@ r.register('character_race_skills', CharacterRaceBonuceSkill)
 r.register('character_race', CharacterRaceViewSet)
 r.register('character_race_atrs', CharacterRaceBonuceAtr)
 r.register('character_race_bonuces', RaceCharacterBonuces)
+r.register('character_other_skill', CharacterOtherSkill)
+r.register('character_attributes', CharacterAttributesView)
 
-urlpatterns = r.urls
+urlpatterns = [
+    path('roll/', RollD4View.as_view(), name='roll'),
+] + r.urls

@@ -1,6 +1,9 @@
+from email import charset
 from tabnanny import verbose
 from django.db import models
 from users.models import User
+
+
 
 
 class CharacterList(models.Model):
@@ -8,12 +11,18 @@ class CharacterList(models.Model):
     name = models.CharField(max_length=200)
     player_name = models.CharField(max_length=200, blank=True)
     expirience = models.DecimalField(max_digits=7, decimal_places=3, null=True, blank=True)
-    armor = models.IntegerField(default=0, blank=True)
-    speed = models.IntegerField(default=0, blank=True)
+    armor = models.IntegerField(blank=True, default=0)
+    speed = models.IntegerField(blank=True, default=0,)
     iniciative = models.IntegerField(default=0, blank=True)
     max_health = models.IntegerField(default=10, blank=True)
     current_health = models.IntegerField(default=10, blank=True)
     multipler_health = models.IntegerField(default=6,blank=True)
+    worldview = models.CharField(max_length=200, default='neutral')
+    age = models.CharField(max_length=20, default=20, blank=True, null=True)
+    weight = models.CharField(max_length=20, blank=True, null=True, default='100 см')
+    height = models.CharField(max_length=20, blank=True, null=True,default='100 см')
+    appearance = models.TextField(blank=True, null=True)
+    history = models.TextField(blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='list_owner')
     slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL")
 
@@ -64,25 +73,30 @@ class CharacterCharacteristics(models.Model):
         return str([self.strength, self.agility, self.stamina, self.wisdom, self.charism])
 
 
-class CharacterAtributes(models.Model):
+class CharacterAttributes(models.Model):
 
-    acrobatics = models.IntegerField(default=0, null=True, blank=True)
     athletics = models.IntegerField(default=0, null=True, blank=True)
-    training = models.IntegerField(default=0, null=True, blank=True)
-    deception = models.IntegerField(default=0, null=True, blank=True)
-    history = models.IntegerField(default=0, null=True, blank=True)
-    attention = models.IntegerField(default=0, null=True, blank=True)
-    intimidation = models.IntegerField(default=0, null=True, blank=True)
-    investigation = models.IntegerField(default=0, null=True, blank=True)
-    medicine = models.IntegerField(default=0, null=True, blank=True)
-    nature = models.IntegerField(default=0, null=True, blank=True)
-    insight = models.IntegerField(default=0, null=True, blank=True)
-    execution = models.IntegerField(default=0, null=True, blank=True)
-    persuasion = models.IntegerField(default=0, null=True, blank=True)
-    religion = models.IntegerField(default=0, null=True, blank=True)
+    acrobatics = models.IntegerField(default=0, null=True, blank=True)
     sleight_of_hand = models.IntegerField(default=0, null=True, blank=True)
     stealth = models.IntegerField(default=0, null=True, blank=True)
+
+    analysis = models.IntegerField(default=0, null=True, blank=True)
+    history = models.IntegerField(default=0, null=True, blank=True)
+    magic = models.IntegerField(default=0, null=True, blank=True)
+    nature = models.IntegerField(default=0, null=True, blank=True)
+    religion = models.IntegerField(default=0, null=True, blank=True)
+
+    attentiveness = models.IntegerField(default=0, null=True, blank=True)
     survival = models.IntegerField(default=0, null=True, blank=True)
+    medicine = models.IntegerField(default=0, null=True, blank=True)
+    insight = models.IntegerField(default=0, null=True, blank=True)
+    animal_care = models.IntegerField(default=0, null=True, blank=True)
+
+    performance = models.IntegerField(default=0, null=True, blank=True)
+    intimidation = models.IntegerField(default=0, null=True, blank=True)
+    deception = models.IntegerField(default=0, null=True, blank=True)
+    conviction = models.IntegerField(default=0, null=True, blank=True)
+
     character_list = models.OneToOneField(CharacterList, on_delete=models.CASCADE, related_name='char_atr')
 
     class Meta:
@@ -115,8 +129,13 @@ class CharacterDeath(models.Model):
 class CharacterSpells(models.Model):
 
     name = models.CharField(max_length=200, blank=True, null=True)
+    description = models.TextField(null=True, blank=True)
     dmg_bonus = models.IntegerField(default=0, blank=True, null=True)
     dmg_type = models.CharField(max_length=150, blank=True, null=True)
+    base_stat = models.CharField(max_length=100, blank=True, null=True)
+    difficult = models.CharField(max_length=200, blank=True, null=True, default=1)
+    lvl_spell = models.IntegerField(null=True, blank=True, default=1,)
+    limit_per_day = models.IntegerField(null=True, blank=True, default=1)
     character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='char_spells')
 
     class Meta:
@@ -146,12 +165,15 @@ class OtherSkills(models.Model):
 class PersonalityTraits(models.Model):
 
     name = models.CharField(max_length=200)
+    ideal = models.TextField(max_length = 200, blank=True, null=True)
+    bond = models.TextField(max_length = 200, blank=True, null=True)
+    flaw = models.TextField(max_length = 200, blank=True, null=True)
     character_list = models.ForeignKey(CharacterList, on_delete=models.CASCADE, related_name='personality_traits')
 
     class Meta:
 
-        verbose_name = 'персональный_навык'
-        verbose_name_plural = 'персональныые_навык'
+        verbose_name = 'персональные_особенности'
+        verbose_name_plural = 'персональная_особенность'
 
     def __str__(self):
 
@@ -247,4 +269,11 @@ class RaceCharacterBonuces(models.Model):
     def __str__(self):
 
         return 'Рассовые бонусы'
+
+
+
+
     
+    
+
+

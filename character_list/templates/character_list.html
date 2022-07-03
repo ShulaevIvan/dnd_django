@@ -14,6 +14,13 @@
 <p>Макс здоровье {{ char_max_health }}</p>
 <p>Текущ. здоровье {{obj.current_health}}</p>
 <p>Кости здоровья {{obj.multipler_health}}</p>
+
+<h2>Свойства Личности</h2>
+<p>Возраст: {{ obj.age }}</p>
+<p>Внешность: {{ obj.appearance }}
+<p>Вес: {{ obj.weight}}</p>
+<p>Рост: {{ obj.height }}</p>
+<p>Мировозрение: {{obj.worldview}}</p>
 {% endfor %}
 
 <h2>Расса</h2>
@@ -46,22 +53,52 @@
 {% endfor %}
 
 <h2>Навыки</h2>
-{% for k, v in char_atrs.items %}
-<p>{{ k }} : {{ v }}</p>
-{% endfor %}
-<p></p>
+
+<h4>Модиф.(Сила)</h4>
+<p>Атлетика: {{ char_atrs.athletics }}</p>
+<h4>Ловкость</h4>
+<p>Акробатика: {{ char_atrs.acrobatics }}</p>
+<p>Ловкоть рук:{{ char_atrs.sleight_of_hand}}</p>
+<p>Скрытность: {{ char_atrs.stealth }}</p>
+<h4>Модиф.(Интелект)</h4>
+<p>Анализ: {{ char_atrs.analysis }}</p>
+<p>История: {{ char_atrs.history }}</p>
+<p>Магия: {{ char_atrs.magic }}</p>
+<p>Природа: {{ char_atrs.nature }}</p>
+<p>Религия: {{ char_atrs.religion }}</p>
+<h4>Модиф.(Мудрость)</h4>
+<p>Внимательность: {{ char_atrs.attentiveness }}</p>
+<p>Выживание: {{ char_atrs.survival }}</p>
+<p>Медицина: {{ char_atrs.medicine }}</p>
+<p>Проницательность: {{ char_atrs.insight }}</p>
+<p>Уход за животными: {{ char_atrs.animal_care }}</p>
+<h4>Модиф.(Харизма)</h4>
+<p>Запугивание: {{ char_atrs.intimidation }}
+<p>Обман: {{ char_atrs.deception }}
+<p>Убеждение: {{ char_atrs.conviction }}
+<p>Выступление: {{ char_atrs.performance }}
 
 <h2>Боевые навыки и заклинания</h2>
 {% for i in char_spells.all %}
-<p>Название {{i.name}}</p>
-<p>Бонус Урона {{i.dmg_bonus}}</p>
-<p>Тип {{i.dmg_type}}</p>
+<p>Название: {{i.name}}</p>
+<p>Базовая характеристика: {{ i.base_stat }}</p>
+<p>Бонус Урона: {{i.dmg_bonus}}</p>
+<p>Тип: {{i.dmg_type}}</p>
+<p>Описание: {{i.description}}</p>
+{% if i.lvl_spell %}
+<p>Уровень заклинания: {{ i.lvl_spell }}</p>
+<p>Базовая сложность: {{i.difficult}}</p>
+{% endif %}
+<p>Количество применения в день: {{ i.limit_per_day}}</p>
 <p></p>
 {% endfor %}
 
-<h2>Персональные навыки</h2>
+<h2>Персональные особенности</h2>
 {% for i in char_person_traits %}
-<p>Навык {{i}}</p>
+<p>Навык {{i.name}}</p>
+<p>Идеал: {{ i.ideal }}</p>
+<p>Привязаность: {{ i.bond }}</p>
+<p>Изъян: {{ i.flaw }}</p>
 {% endfor %}
 
 <h2>Прочие навыки</h2>

@@ -1,8 +1,8 @@
+from urllib import request
 from django.shortcuts import render
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views import View
-from django.db.models import Sum
-from .models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterAtributes, \
+
+from .models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterAttributes, \
 CharacterDeath, CharacterItemPosition, CharacterRaceBonuceAtr, CharacterSpells, OtherSkills, PersonalityTraits, RaceCharacterBonuces
 
 
@@ -11,7 +11,6 @@ class CharacterListAllView(View):
     permission_required = 'character_list.view_post'
 
     def get(self, request):
-
         data = CharacterList.objects.all().filter(owner=request.user)
         template_name = 'character_list_all.html'
         context = {
@@ -58,26 +57,27 @@ class CharacterListItemView(View):
     def get_atr_modifer(self, atr_obj, stats_modif):
 
         atr_set = {
+            'athletics': 'strength',
             'acrobatics': 'agility',
-            'athletics' : 'strength',
-            'training' : 'wisdom',
+            'sleight_of_hand': 'agility',
+            'stealth': 'agility',
+            'analysis': 'intelligence',
+            'history': 'intelligence',
+            'magic': 'intelligence',
+            'nature': 'intelligence',
+            'religion': 'intelligence',
+            'attentiveness': 'wisdom',
+            'survival': 'wisdom',
+            'medicine': 'wisdom',
+            'insight': 'wisdom',
+            'animal_care': 'wisdom',
+            'performance': 'charism',
+            'intimidation': 'charism',
             'deception': 'charism',
-            'attention' : 'wisdom',
-            'history ': 'intelligence',
-            'investigation': 'intelligence',
-            'nature' : 'intelligence',
-            'intimidation' : 'charism',
-            'medicine' : 'wisdom',
-            'religion ' : 'intelligence',
-            'insight' : 'wisdom',
-            'execution' : 'charism',
-            'persuasion' : 'wisdom',
-            'sleight_of_hand' : 'agility',
-            'stealth' : 'agility',
-            'survival' : 'wisdom'
+            'conviction': 'charism'
         }
 
-        clear_atr = {}
+        clear_atr = dict()
 
         for obj in atr_obj.values():
             for k, v in obj.items():
@@ -110,14 +110,15 @@ class CharacterListItemView(View):
         char_stats = CharacterCharacteristics.objects.all().filter(character_list = character[0].id)
         char_class = CharacterClass.objects.all().filter(character_list = character[0].id)
         char_death = CharacterDeath.objects.all().filter(character_list = character[0].id)
-        char_atributes = CharacterAtributes.objects.all().filter(character_list = character[0].id)
+        char_atributes = CharacterAttributes.objects.all().filter(character_list = character[0].id)
         char_items = CharacterItemPosition.objects.all().filter(character_list = character[0].id)
         char_spells = CharacterSpells.objects.all().filter(character_list = character[0].id)
         char_other_skills = OtherSkills.objects.all().filter(character_list = character[0].id)
         char_personality_traits = PersonalityTraits.objects.all().filter(character_list = character[0].id)
         race_bonuces = RaceCharacterBonuces.objects.all().filter(character_list = character[0].id)
-        clear_stats = {}
-        stats_modif = {}
+        clear_stats = dict()
+        stats_modif = dict()
+
 
 
         if CharacterRaceBonuceAtr.objects.all().filter(character_list_id = character[0].id).exists():
@@ -139,6 +140,7 @@ class CharacterListItemView(View):
             }
         
         for i in char_stats.values():
+
             if i == i['id'] or i == i['character_list_id']:
                 continue
             else:
@@ -158,8 +160,6 @@ class CharacterListItemView(View):
                 del clear_race_bonuces[f'modif_{k}_bonuce']
 
             stats_modif[k] = self.get_modifer(char_stats, k, race_m)
-            
-        char_atrs = self.get_atr_modifer(char_atributes, stats_modif)
 
         if len(stats_modif) == 0:
             
@@ -171,7 +171,7 @@ class CharacterListItemView(View):
                 'wisdom': 0, 
                 'charism': 0
             }
-
+        char_atrs = self.get_atr_modifer(char_atributes, stats_modif)
         char_lvl = CharacterClass.objects.filter(character_list = character[0].id).values_list('lvl', flat=True)
         char_multipler_helth = CharacterList.objects.filter(id = character[0].id).values_list('multipler_health', flat=True)
         max_health = self.get_max_health(char_lvl, char_multipler_helth, stats_modif['stamina'])
