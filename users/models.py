@@ -11,3 +11,8 @@ class User(AbstractUser):
     REQUIRED_FIELDS = ["username"]
 
 
+class UserTokens(models.Model):
+
+    user = models.CharField(max_length=255, unique=True)
+    token = models.CharField(max_length=999, unique=True)
+

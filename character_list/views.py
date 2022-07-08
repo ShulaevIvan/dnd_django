@@ -1,4 +1,3 @@
-from urllib import request
 from django.shortcuts import render
 from django.views import View
 
@@ -6,13 +5,14 @@ from .models import CharacterList, CharacterCharacteristics, CharacterClass, Cha
 CharacterDeath, CharacterItemPosition, CharacterRaceBonuceAtr, CharacterSpells, OtherSkills, PersonalityTraits, RaceCharacterBonuces
 
 
-class CharacterListAllView(View):
 
-    permission_required = 'character_list.view_post'
+
+class CharacterListAllView(View):
 
     def get(self, request):
         data = CharacterList.objects.all().filter(owner=request.user)
         template_name = 'character_list_all.html'
+
         context = {
             'character': data
         }

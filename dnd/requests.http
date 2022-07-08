@@ -1,17 +1,33 @@
 @baseUrl = http://localhost:8000/api/v1/
 
+###
+GET {{baseUrl}}get_user_tokens/
+Content-Type: application/json
+Authorization: Token fc46a021d3e3390d34883cdfbb018c0383c7079b
+
+
+###
+POST {{baseUrl}}get_user_tokens/
+Content-Type: application/json
+Authorization: Token fc46a021d3e3390d34883cdfbb018c0383c7079b
+
+{
+    "user": "3idwevk0zjvi0tjp8f0wmgqtsjzxyeve"
+}
+
+
 ### character_list
 GET {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
+Authorization: Token 16f697a88cb009d9df4b93ac0d0c59b34a4eb16d
 
 ###
 POST {{baseUrl}}character_list/
 Content-Type: application/json
-Authorization: Token 4abce994d6a14bcdf7a8a0a66a151fb915a6c8e0
+Authorization: Token 16f697a88cb009d9df4b93ac0d0c59b34a4eb16d
 
 {
-    "name": "t25dg6s52",
+    "name": "t25dg6s522",
     "player_name": "Vlad",
     "expirience": 0,
     "armor": 5,

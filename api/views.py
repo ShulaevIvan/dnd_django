@@ -1,4 +1,3 @@
-from logging import critical
 from urllib import request
 from rest_framework.viewsets  import ModelViewSet
 from rest_framework.views import APIView
@@ -7,18 +6,20 @@ from rest_framework.response import Response
 from rest_framework.filters import SearchFilter
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsSuperAdmin
 
 import random
 
 from .serializers import CharacterClassSerializer, CharacterListSerializer, CharacterCharacteristicsSerializer, \
 CharacterItemSerializer, CharacterItemPositionSerializer, GiveAwayItemPositionSerializer, CharacterDeathSerializer, \
 CharacterSpellsSerializer, OtherSkillsSerializer, PersonalityTraitsSerializer, RaceCharacterBonucesSerialier, CharacterRaceBonuceSkillSerializer, \
-CharacterRaceSerializer, CharacterRaceBonuceAtrSerializer, CharacterAttributesSerializer
+CharacterRaceSerializer, CharacterRaceBonuceAtrSerializer, CharacterAttributesSerializer, UserTokensSerializer
 
 from character_list.models import CharacterList, CharacterCharacteristics, CharacterClass, CharacterItem, CharacterItemPosition, \
 CharacterDeath, CharacterSpells, OtherSkills, PersonalityTraits, CharacterRaceBonuceSkill, CharacterRace, RaceCharacterBonuces, \
 CharacterRaceBonuceAtr, CharacterAttributes
 
+from users.models import UserTokens
 
 class RollD4View(APIView):
 
@@ -132,3 +133,18 @@ class CharacterAttributesView(ModelViewSet):
 
     queryset = CharacterAttributes.objects.all()
     serializer_class = CharacterAttributesSerializer
+
+class UserTokenView(ModelViewSet):
+
+    queryset = UserTokens.objects.all()
+    serializer_class = UserTokensSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_fields = ['user']
+    search_fields = ['user']
+
+    def get_permissions(self):
+
+        if self.action in ["list", "create", "update", "partial_update", 'destroy']:
+            return [IsSuperAdmin(), IsAuthenticated()]
+        return []
+

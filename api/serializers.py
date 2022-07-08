@@ -1,9 +1,15 @@
 from rest_framework import serializers
 from rest_framework.validators import ValidationError
+from rest_framework import status
+
+from django.contrib.sessions.models import Session
 from users.models import User
 from  character_list.models import CharacterList, CharacterClass, CharacterCharacteristics, CharacterItem, CharacterItemPosition, \
 CharacterDeath, CharacterSpells, PersonalityTraits, CharacterRaceBonuceSkill, CharacterRace, RaceCharacterBonuces , \
 CharacterRaceBonuceAtr, OtherSkills, CharacterAttributes
+
+from users.models import UserTokens
+
 
 
 class CharacterClassSerializer(serializers.ModelSerializer):
@@ -294,6 +300,33 @@ class CharacterAttributesSerializer(serializers.ModelSerializer):
         character.save()
 
         return character_atrs
+
+class UserTokensSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = UserTokens
+        fields = ['user', 'token']
+        read_only_fields = ['token']
+
+    def create(self, validated_data):
+
+        user = UserTokens.objects.all()
+
+        session_key = validated_data.pop('user')
+        session = Session.objects.get(session_key=session_key)
+        session_data = session.get_decoded()
+        uid = session_data.get('_auth_user_id')
+        user = User.objects.get(id=uid)
+        token = UserTokens.objects.all().filter(user=user)
+
+        exeption = serializers.ValidationError(token[0].token)
+        exeption.status_code = 200
+
+        raise exeption
+        
+      
+
 
 
 
